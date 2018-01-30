@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
+	</head>
+		
+	<body>
+		<div id='map' style='width: 700px; height: 500px;'></div>
+		
+
+		
+		
+	</body>
+	
+	<script>
+		  mapboxgl.accessToken = 'pk.eyJ1IjoiamVqZWxpbmsiLCJhIjoiY2pkMXBucjkxMjR5ZjMzbnhjbTFnZmN0cCJ9.0WHyMDjfg7YwuxWx7LPqcw';
+		  var map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/mapbox/streets-v10',
+			center: [4.85, 45.75], // starting position
+			zoom: 12 // starting zoom
+		  });
+		  // Add zoom and rotation controls to the map.
+		map.addControl(new mapboxgl.NavigationControl());
+		</script>
+
+</html>
