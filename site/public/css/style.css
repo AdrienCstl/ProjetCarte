@@ -85,3 +85,13 @@
             font-size: 1.5em;
         }
     }
+
+    #map{
+        width: 90%;
+        margin:auto;
+        margin-top:0px;
+        padding: 25px;
+    }
+    #map h3{
+        margin-top: 20px;
+    }
