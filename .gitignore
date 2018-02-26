@@ -3,3 +3,7 @@
 node_modules/
 
 site/\.idea/
+
+site/npm-debug\.log
+
+*.log
