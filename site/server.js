@@ -12,8 +12,10 @@ app.use('/public',express.static('public')) //define the route for everything in
 
 
 app.get('/', function (request,response) { //function which send the next content each time the user get to '/'
-
-    db.connection()
+	
+    db.connection(response)
+	db.getData(response);
+	
     response.sendFile(__dirname + '/index.html')
     //response.render('index')
 })
