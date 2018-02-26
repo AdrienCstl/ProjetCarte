@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-   <link rel="stylesheet" href="./css/semantic/semantic.min.css">
-   <link rel="stylesheet" href="./css/style.css">
+   <link rel="stylesheet" href="public/css/semantic/semantic.min.css">
+   <link rel="stylesheet" href="public/css/style.css">
    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="./css/semantic/components/visibility.js"></script>
-    <script src="./css/semantic/components/sidebar.js"></script>
-    <script src="./css/semantic/components/transition.js"></script>
-    <script src="./js/script.js"></script>
+    <script src="public/css/semantic/components/visibility.js"></script>
+    <script src="public/css/semantic/components/sidebar.js"></script>
+    <script src="public/css/semantic/components/transition.js"></script>
+    <script src="public/js/script.js"></script>
 
  <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
  <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
@@ -53,7 +53,7 @@
    </h1>
    <h2>The perfect tourist's guide.</h2>
    <a class="ui small image"  href="https://www.univ-lyon1.fr/">
-       <img src="./medias/images/logo.png"/>
+       <img src="public/medias/images/logo.png"  />
    </a>
    <div  class="ui huge secondary  button" id="getStarted">Get Started <i class="right arrow icon"></i></div>
 </div>
@@ -63,18 +63,22 @@
 
 
 <div id="map" class="ui vertical stripe segment">
-   <div class="ui middle aligned stackable grid container">
-       <script>
-           mapboxgl.accessToken = 'pk.eyJ1IjoiamVqZWxpbmsiLCJhIjoiY2pkMXBucjkxMjR5ZjMzbnhjbTFnZmN0cCJ9.0WHyMDjfg7YwuxWx7LPqcw';
-           var map = new mapboxgl.Map({
+   <div class="ui middle aligned stackable  container">
+       <div id="mapbox">
+            <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
+           <script>
+               mapboxgl.accessToken = 'pk.eyJ1IjoiamVqZWxpbmsiLCJhIjoiY2pkMXBucjkxMjR5ZjMzbnhjbTFnZmN0cCJ9.0WHyMDjfg7YwuxWx7LPqcw';
+               var map = new mapboxgl.Map({
                container: 'map',
-               style: 'mapbox://styles/mapbox/streets-v10',
+               style: 'mapbox://styles/mapbox/streets-v9',
                center: [4.85, 45.75], // starting position
                zoom: 12 // starting zoom
-           });
-           // Add zoom and rotation controls to the map.
-           map.addControl(new mapboxgl.NavigationControl());
-       </script>
+               });
+               // Add zoom and rotation controls to the map.
+               //map.addControl(new mapboxgl.NavigationControl());
+           </script>
+       </div>
+
    </div>
 </div>
 
