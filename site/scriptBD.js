@@ -20,6 +20,7 @@ exports.getData = function(res) {
 	{
 		if (err) return handleError(err);
 		console.log(lieu);
+		res.json(lieu);
 	});
 }
 

@@ -1,7 +1,7 @@
 let express = require('express')
 let app = express()  // Charge express
 
-let db = require('./script.js')
+let db = require('./scriptBD.js')
 //let path = require('path')
 
 
@@ -10,16 +10,21 @@ let db = require('./script.js')
 
 app.use('/public',express.static('public')) //define the route for everything in public with the prefix /public (not needed but interrested)
 
+console.log('Serveur lancé');
 
 app.get('/', function (request,response) { //function which send the next content each time the user get to '/'
-	
-    db.connection(response)
-	db.getData(response);
-	
-    response.sendFile(__dirname + '/index.html')
+
+    response.sendFile(__dirname + '/index.html');
+	console.log('Nouveau visiteur');
     //response.render('index')
 })
 
+//Get all data
+app.get('/data', function (request,response) { //function which send the next content each time the user get to '/'
+	
+    db.connection(response)
+	db.getData(response);
+})
 
 app.listen(8080)
 
