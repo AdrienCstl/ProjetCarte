@@ -1,6 +1,7 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
    <link rel="stylesheet" href="public/css/semantic/semantic.min.css">
    <link rel="stylesheet" href="public/css/style.css">
    
@@ -63,13 +64,14 @@
 
 
 <div id="map" class="ui vertical stripe segment">
-   <div class="ui middle aligned stackable  container">
+   <div style="height: 100%;width: 100%;padding:0;margin:0px;" class="ui middle aligned stackable  container">
+       <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
        <div id="mapbox">
-            <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
+
            <script>
                mapboxgl.accessToken = 'pk.eyJ1IjoiamVqZWxpbmsiLCJhIjoiY2pkMXBucjkxMjR5ZjMzbnhjbTFnZmN0cCJ9.0WHyMDjfg7YwuxWx7LPqcw';
                var map = new mapboxgl.Map({
-               container: 'map',
+               container: 'mapbox',
                style: 'mapbox://styles/mapbox/streets-v9',
                center: [4.85, 45.75], // starting position
                zoom: 12 // starting zoom
@@ -79,21 +81,40 @@
            </script>
        </div>
 
+       <div id="navMap">
+           <h4>Test</h4>
+           <u>
+               <li>Ouais</li>
+               <li>Non</li>
+           </u>
+       </div>
+
    </div>
+
 </div>
 
 <div id="stats" class="ui vertical stripe segment">
-   <div class="ui text container">
-       <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-       <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-       <a class="ui large button">Read More</a>
-       <h4 class="ui horizontal header divider">
-           <a href="#">Case Studies</a>
-       </h4>
-       <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-       <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-       <a class="ui large button">I'm Still Quite Interested</a>
-   </div>
+    <div class="ui celled grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui wireframe image" src="public/medias/images/image.png">
+            </div>
+            <div class="thirteen wide column" >
+                <img class="ui centered wireframe massive image" src="public/medias/images/centered-paragraph.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui wireframe image" src="public/medias/images/image.png">
+            </div>
+            <div class="ten wide column">
+                <img class="ui wireframe image" src="public/medias/images/paragraph.png">
+            </div>
+            <div class="three wide column">
+                <img class="ui wireframe image" src="public/medias/images/image.png">
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -105,22 +126,22 @@
                <div class="ui inverted link list">
                    <a href="#" class="item">Sitemap</a>
                    <a href="#" class="item">Contact Us</a>
-                   <a href="#" class="item">Religious Ceremonies</a>
-                   <a href="#" class="item">Gazebo Plans</a>
+                   <a href="#" class="item">University</a>
+                   <a href="#" class="item">Lyon</a>
                </div>
            </div>
            <div class="three wide column">
-               <h4 class="ui inverted header">Services</h4>
+               <h4 class="ui inverted header">Navigation</h4>
                <div class="ui inverted link list">
-                   <a href="#" class="item">Banana Pre-Order</a>
-                   <a href="#" class="item">DNA FAQ</a>
-                   <a href="#" class="item">How To Access</a>
-                   <a href="#" class="item">Favorite X-Men</a>
+                   <a href="#" class="item">Home</a>
+                   <a href="#" class="item">Map</a>
+                   <a href="#" class="item">Stats</a>
                </div>
            </div>
            <div class="seven wide column">
-               <h4 class="ui inverted header">Footer Header</h4>
-               <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+               <h4 class="ui inverted header">ProjetCarte</h4>
+               <p>Projet de développement. Licence 3 informatique, université Claude Bernard Lyon 1</p>
+               <p >2018</p>
            </div>
        </div>
    </div>
