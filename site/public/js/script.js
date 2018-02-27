@@ -1,5 +1,11 @@
 $(document)
     .ready(function () {
+
+        $.post( "/data", function(data) {
+            $( ".result" ).html( data );
+            console.log(data);
+        });
+
         $(document).on("scroll", onScroll);
         $(document).on("scroll", onScrollSetPos);
         
@@ -15,6 +21,8 @@ $(document)
                 }
             })
             ;
+
+
 
         // create sidebar and attach to menu open
         $('.ui.sidebar')
@@ -89,3 +97,6 @@ function onScrollSetPos(event) {
 
     var scrollPos = $(document).scrollTop();
 }
+
+
+

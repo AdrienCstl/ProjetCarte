@@ -86,21 +86,31 @@
         }
     }
     #map {
-        padding-top: 50px;
+        padding-top: 0px;
+        padding-bottom: 0;
     }
     #map h3{
-        margin-top: 10px;
+        margin-top: 50px;
     }
 
     #mapbox{
-        height: 90%;
-        width: 90%;
+        margin-top:auto;
+        max-height: 85%;
+        height: 85%;
+        width: 100%;
         float: left;
+        box-shadow: 0px 0px 10px 1px lightgray;
+        z-index: 5;
     }
     #navMap{
-        background: whitesmoke;
-        height: inherit;
-        padding:2px;
-        box-shadow: 1px 1px 1px 2px grey;
+        float:left;
+        padding:0px;
+        box-shadow: 0px 0px 10px 2px grey;
+        z-index: 10;
+        position: relative;
+    }
+
+    #stats{
+        padding-top: 50px;
     }
 

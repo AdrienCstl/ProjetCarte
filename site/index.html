@@ -64,7 +64,7 @@
 
 
 <div id="map" class="ui vertical stripe segment">
-   <div style="height: 100%;width: 100%;padding:0;margin:0px;" class="ui middle aligned stackable  container">
+   <div style="width: 100%;padding:0;margin:0px; overflow: hidden;max-height:100%" class="ui middle aligned stackable  container">
        <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
        <div id="mapbox">
 
@@ -79,15 +79,42 @@
                // Add zoom and rotation controls to the map.
                //map.addControl(new mapboxgl.NavigationControl());
            </script>
+           <div id="navMap">
+
+               <div class="ui compact menu">
+
+
+                   <form class="ui form">
+                       <div class="ui search">
+                           <div class="ui left icon input">
+                               <input class="prompt" placeholder="Search places" type="text">
+                               <i class="search icon"></i>
+                           </div>
+                       </div>
+
+                       <div class="ui dropdown button">
+                           <span class="text">Choose Category</span>
+                           <i class="dropdown icon"></i>
+                           <div class="menu">
+                               <div class="item">
+                                   <span class="text">Category 1</span>
+                               </div>
+                               <div class="item">
+                                   <span class="text">Category 2</span>
+                               </div>
+                               <div class="item">
+                                   <span class="text">Category 3</span>
+                               </div>
+                           </div>
+                       </div>
+                   </form>
+
+               </div>
+
+           </div>
        </div>
 
-       <div id="navMap">
-           <h4>Test</h4>
-           <u>
-               <li>Ouais</li>
-               <li>Non</li>
-           </u>
-       </div>
+
 
    </div>
 
@@ -155,4 +182,7 @@
 
 
 </body>
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
 </html>
