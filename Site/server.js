@@ -28,7 +28,11 @@ app.get('/', function (request,response) { //function which send the next conten
 //Get data depending of params
 app.post('/data', function (request,response) {
 	db.connection();
-	if(request.body.name)
+	if(request.body.name && request.body.type)
+	{
+		db.getDataByNameAndType(response, request.body.name, request.body.type);
+	}
+	else if(request.body.name)
 	{
 		db.getDataByName(response, request.body.name);
 	}
