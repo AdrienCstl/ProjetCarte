@@ -2,19 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
+
+    <!-- MAPBOX -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- CSS -->
    <link rel="stylesheet" href="public/css/semantic/semantic.min.css">
    <link rel="stylesheet" href="public/css/style.css">
-   
+   <link rel="stylesheet" type="text/css" href="public/css/semantic/components/dropdown.css">
+
+
+    <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="public/css/semantic/components/visibility.js"></script>
     <script src="public/css/semantic/components/sidebar.js"></script>
     <script src="public/css/semantic/components/transition.js"></script>
+    <script type="text/javascript" src="public/css/semantic/components/dropdown.js"></script>
     <script src="public/js/script.js"></script>
 
- <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
- <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
+
+
+
 
 
 
@@ -68,23 +79,13 @@
        <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
        <div id="mapbox">
 
-           <script>
-               mapboxgl.accessToken = 'pk.eyJ1IjoiamVqZWxpbmsiLCJhIjoiY2pkMXBucjkxMjR5ZjMzbnhjbTFnZmN0cCJ9.0WHyMDjfg7YwuxWx7LPqcw';
-               var map = new mapboxgl.Map({
-               container: 'mapbox',
-               style: 'mapbox://styles/mapbox/streets-v9',
-               center: [4.85, 45.75], // starting position
-               zoom: 12 // starting zoom
-               });
-               // Add zoom and rotation controls to the map.
-               map.addControl(new mapboxgl.NavigationControl());
-           </script>
+
            <div id="navMap">
 
                <div class="ui compact menu">
 
 
-                   <form class="ui form">
+                   <form class="ui form myForm">
                        <div class="ui search">
                            <div class="ui left icon input">
                                <input class="prompt" placeholder="Search places" type="text">
@@ -97,15 +98,26 @@
                            <i class="dropdown icon"></i>
                            <div class="menu">
                                <div class="item">
-                                   <span class="text">Category 1</span>
+                                   <span class="text">Choose Category</span>
                                </div>
                                <div class="item">
-                                   <span class="text">Category 2</span>
+                                   <span class="text">Cinémas</span>
                                </div>
                                <div class="item">
-                                   <span class="text">Category 3</span>
+                                   <span class="text">Musées</span>
+                               </div>
+                               <div class="item">
+                                   <span class="text">Découvertes</span>
+                               </div>
+                               <div class="item">
+                                   <span class="text">Parcs</span>
                                </div>
                            </div>
+                       </div>
+
+                       <div class="infoPin container">
+                           test
+
                        </div>
                    </form>
 
@@ -182,7 +194,5 @@
 
 
 </body>
-<script>
-    $('.ui.dropdown').dropdown();
-</script>
+<script src="public/js/map.js"></script>
 </html>

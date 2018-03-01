@@ -105,12 +105,28 @@
     #navMap{
         float:left;
         padding:0px;
-        box-shadow: 0px 0px 10px 2px grey;
+        background: white;
+        box-shadow: 0px 0px 5px 1px lightgrey;
         z-index: 10;
-        position: relative;
+        position: absolute;
     }
 
     #stats{
         padding-top: 50px;
     }
 
+    .marker {
+        background-image: url('http://moziru.com/images/pointer-clipart-pin-10.png');
+        background-size: cover;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+.infoPin{
+    height: 150px;
+    background: yellow;
+    margin-top: 15px;
+    display: none;
+}
