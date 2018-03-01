@@ -30,11 +30,11 @@ app.post('/data', function (request,response) {
 	db.connection();
 	if(request.body.name)
 	{
-		db.getDataByName(response);
+		db.getDataByName(response, request.body.name);
 	}
 	else if(request.body.type)
 	{
-		db.getDataByType(response);
+		db.getDataByType(response,request.body.type);
 	}
 	else{
 		db.getData(response);

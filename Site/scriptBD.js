@@ -33,8 +33,9 @@ exports.getDataByName = function(res, name){
 
 //Send data with a specified type
 exports.getDataByType = function(res, type){
-	lieux.find({type: type}).exec(function (err, lieu) 
+	lieux.find({type: type}).exec(function (err, lieu)
 	{
+		console.log(type);
 		if (err) return handleError(err);
 		res.json(lieu);
 	});

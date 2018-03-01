@@ -7,3 +7,5 @@ site/\.idea/
 site/npm-debug\.log
 
 *.log
+
+Site/package-lock\.json

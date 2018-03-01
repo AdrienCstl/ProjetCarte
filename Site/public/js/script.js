@@ -1,10 +1,14 @@
 $(document)
     .ready(function () {
-
-        $.post( "/data", function(data) {
+    //Requetes AJAX
+        $.post( "/data", {type:"HOTELLERIE"} ,function(data) {
             $( ".result" ).html( data );
             console.log(data);
         });
+
+
+
+        // Fin des requetes
 
         $(document).on("scroll", onScroll);
         $(document).on("scroll", onScrollSetPos);
