@@ -13,7 +13,6 @@ exports.connection = function (){
 
 //Send all the data
 exports.getData = function(res) {
-	
 	lieux.find({}).exec(function (err, lieu) 
 	{
 		if (err) return handleError(err);
@@ -36,6 +35,15 @@ exports.getDataByType = function(res, type){
 	lieux.find({type: type}).exec(function (err, lieu)
 	{
 		console.log(type);
+		if (err) return handleError(err);
+		res.json(lieu);
+	});
+}
+
+//Send data with a specified name and a specified type
+exports.getDataByNameAndType = function(res, name, type){
+	lieux.find({nom: name, type: type}).exec(function (err, lieu) 
+	{
 		if (err) return handleError(err);
 		res.json(lieu);
 	});
