@@ -74,12 +74,12 @@ var schemaGoogle = new mongoose.Schema({
     price: String,
     rating: Number,
     icon: String, 
-    reviews: [{author_name: String,rating: Number, text: String time: Number}] 
+    reviews: [{author: String,rating: Number, text: String, time: Number}] 
 });
   
 var lieuxGoogle = mongoose.model('lieuxGoogle', schemaGoogle, 'lieuxGoogle');
 
 //Definis quel bd on utilise
-var lieux = lieuxGoogle;
+var lieux = lieuxTest;
 
 
