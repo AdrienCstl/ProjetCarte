@@ -45,5 +45,16 @@ app.post('/data', function (request,response) {
 	}
 });
 
+
+app.post('/addData', function(request,response){
+	//If threre is the good param
+	if(request.body.data)
+	{
+		db.connection();
+		addData(response, data);
+	}
+	
+});
+
 app.listen(8080)
 

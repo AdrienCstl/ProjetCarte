@@ -7,7 +7,6 @@ exports.connection = function (){
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function callback () {
         console.log("connection successfull");
-		
     });
 }
 
@@ -16,7 +15,6 @@ exports.getData = function(res) {
 	lieux.find({}).exec(function (err, lieu) 
 	{
 		if (err) return handleError(err);
-		console.log(lieu);
 		res.json(lieu);
 	});
 }
@@ -49,7 +47,39 @@ exports.getDataByNameAndType = function(res, name, type){
 	});
 }
 
+exports.addData = function(res, data)
+{
+	var ObjectID = require('mongodb').ObjectID;
+	for(var i = 0; i < data.length; i++)
+	{
+		lieuxGoogle.insert(data[i]);
+	}
+}
+
+
+//Bd de test
 var schema = new mongoose.Schema({type: String, nom: String, adresse: String,
 codepostal: String, email: String, geometry: { coordinates: [ [Number], [Number] ] }
   });
-var lieux = mongoose.model('lieux', schema, 'lieux');
+var lieuxTest = mongoose.model('lieux', schema, 'lieux');
+
+//Bd de google
+var schemaGoogle = new mongoose.Schema({ 
+    name: String,
+    type: String,
+    adress: String,
+    phone: String,
+    website: String,
+    hours: [String],
+    price: String,
+    rating: Number,
+    icon: String, 
+    reviews: [{author_name: String,rating: Number, text: String time: Number}] 
+});
+  
+var lieuxGoogle = mongoose.model('lieuxGoogle', schemaGoogle, 'lieuxGoogle');
+
+//Definis quel bd on utilise
+var lieux = lieuxGoogle;
+
+
