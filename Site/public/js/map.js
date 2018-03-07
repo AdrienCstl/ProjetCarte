@@ -115,35 +115,35 @@ $.post("/data", function (d) {
 });
 
 
-function afficheDetail(elem) {
-    var premiereligne = $(".row")[0];
-    var deuxiemeligne = $(".row")[1];
-
-    //Champs à ajouter
-    var titre = "<h3>" + elem.nom + "</h3>";
-    var type = "<p>" + elem.type + "</p>";
-    var description = "<p>Y a rien</p>";
-
-    var horaire = "<p>" + elem.ouverture + "</p>";
-
-    var adresse = "<p>" + adresse + " " + elem.codepostal + " " + elem.commune + "</p>";
-    var contact = "<p>" + elem.telephone + "</p><p>" + elem.email + "</p>";
-
-
-    //Ajout dans le template
-
-    //Ajout dans la premiere ligne
-    //Ajout dans la deuxieme colonne
-    premiereligne.getElementsByClassName(".thirteen wide column")[0].append(titre);
-    premiereligne.getElementsByClassName(".thirteen wide column")[0].append(type);
-    premiereligne.getElementsByClassName(".thirteen wide column")[0].append(description);
-
-    //Ajout dans la deuxieme ligne
-    //Ajout dans la premiere colonne
-    deuxiemeligne.getElementsByClassName('.three wide column')[0].append(horaire);
-
-    //Ajout dans la deuxieme colonne
-    deuxiemeligne.getElementsByClassName(".ten wide column")[0].append(adresse);
-    deuxiemeligne.getElementsByClassName(".ten wide column")[0].append(contact);
-
+function afficheDetail(elem){
+	var premiereligne = $(".row")[0];
+	var deuxiemeligne = $(".row")[1];
+	
+	//Champs à ajouter
+	var titre = '<h3>' + elem.nom +'</h3>';
+	var type = '<p>'+elem.type+'</p>';
+	var description = "<p>Y a rien</p>";
+	
+	var horaire = "<p>"+elem.ouverture+ "</p>";
+	
+	var adresse = "<p>" +adresse + " " +elem.codepostal +" "+ elem.commune+"</p>";
+	var contact = "<p>"+elem.telephone+"</p><p>"+elem.email+"</p>";
+	
+	
+	//Ajout dans le template
+	
+	//Ajout dans la premiere ligne
+		//Ajout dans la deuxieme colonne
+		console.log(premiereligne.getElementsByClassName("thirteen wide column"));
+		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
+		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
+		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
+		
+	//Ajout dans la deuxieme ligne
+		//Ajout dans la premiere colonne
+		deuxiemeligne.getElementsByClassName('three wide column')[0].innerHTML = horaire;
+		
+		//Ajout dans la deuxieme colonne
+		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
+		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
