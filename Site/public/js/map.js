@@ -49,7 +49,7 @@ function refresh() {
 function afficherPopup(event) {
 
     var elem = data[event.target.id];
-    //afficheDetail(elem);
+    afficheDetail(elem);
     var tmpDivItem = document.createElement('div');
     var tmpDivContent = document.createElement('div');
     var tmpDivMeta = document.createElement('div');
