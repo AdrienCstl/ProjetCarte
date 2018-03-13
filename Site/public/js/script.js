@@ -34,10 +34,10 @@ $(document)
                 scrollTop: $("#map").offset().top
             }, 1000);
         });
+        
         $('.s1').click(function () {
 
             $('.ss1').addClass('active');
-            console.log($('.ss1'));
         });
        
         //smoothscroll

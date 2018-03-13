@@ -80,27 +80,14 @@
                         </div>
                     </div>
                     <div class="item">
-                        <div class="ui dropdown button">
-                            <span class="text">Choose Category</span>
+                        <select id="cat" onchange="modifyType()" class="ui dropdown button">
                             <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item">
-                                    <span class="text">Choose Category</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text">Cinémas</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text">Musées</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text">Découvertes</span>
-                                </div>
-                                <div class="item">
-                                    <span class="text">Parcs</span>
-                                </div>
-                            </div>
-                        </div>
+                                    <option value="all" class="text">Choose Category</option>
+                                    <option value="cinema" class="text">Cinémas</option>
+                                    <option value="musees" class="text">Musées</option>
+                                    <option value="decouvertes" class="text">Découvertes</option>
+                                    <option value="parcs" class="text">Parcs</option>
+                        </select>
                     </div>
                     <div class="ui divider"></div>
                     <div class="item">

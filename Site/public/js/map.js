@@ -3,7 +3,7 @@ var data;
 
 // Fin des requetes
 
-//add positions
+//create tab 
 mapboxgl.accessToken = 'undefined';
 var geojson = {
     "type": "FeatureCollection",
@@ -22,10 +22,12 @@ map.addControl(new mapboxgl.NavigationControl());
 map.scrollZoom.disable();
 
 
+
 //add markers to map
 
 function refresh() {
     var compteur = 0;
+    
     geojson.features.forEach(function (marker) {
         // create a HTML element for each feature
         var el = document.createElement('div');
@@ -64,14 +66,23 @@ function afficherPopup(event) {
     tmpDivItem.style.overflow = "hidden";
     tmpDivItem.style.maxWidth = "253px";
 
+   // tmpH.href = "#stats";
+   tmpH.onclick = function() { $('html, body').animate({
+    scrollTop: $("#stats").offset().top
+}, 600); };
+    
+
+
     tmpDivItem.className = 'item';
     tmpDivItem.id = 'popup';
     tmpH.className = "ui small header";
+    tmpH.id = "titlePos";
     tmpDivMeta.className = "meta";
     tmpDivDesc.className = "description";
     tmpDivExtra.className = "extra";
     tmpDivContent.className = "content";
 
+    
 
 
 
@@ -88,6 +99,7 @@ function afficherPopup(event) {
 
     $("#navMap")[0].firstElementChild.replaceChild(tmpDivItem, $("#navMap")[0].firstElementChild.lastElementChild);
     $("#popup").slideToggle("fast");
+    
 
 }
 
@@ -98,21 +110,30 @@ function addMarkerstoList(features, data) {
         features[i].type = "Feature";
         features[i].properties = {message: data[i - currentSize].type};
         features[i].geometry = data[i - currentSize].geometry;
-    }
-
-
+    }    
+    
 }
 
 //Requetes AJAX
 $.post("/data", function (d) {
     $(".result").html(d);
     data = d;
-    console.log(data);
 
     addMarkerstoList(geojson.features, data);
-    console.log(geojson.features);
     refresh();
 });
+
+function reload(){
+    geojson.features = [];
+    console.log(geojson.features);
+    $.post("/data",{type:"HOTELLERIE"}, function (d) {
+        $(".result").html(d);
+        data = d;
+    
+        addMarkerstoList(geojson.features, data);
+        refresh();
+    });
+}
 
 
 function afficheDetail(elem){
@@ -134,7 +155,6 @@ function afficheDetail(elem){
 	
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
-		console.log(premiereligne.getElementsByClassName("thirteen wide column"));
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
@@ -146,4 +166,13 @@ function afficheDetail(elem){
 		//Ajout dans la deuxieme colonne
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
+}
+
+function modifyType(){
+
+    var dropdown = document.getElementById("cat");
+    
+
+    console.log(dropdown.value);
+  //  reload();
 }
