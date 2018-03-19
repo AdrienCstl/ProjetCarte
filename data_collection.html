@@ -38,7 +38,7 @@
     service.nearbySearch({
       location: pyrmont,
       radius: 8000,
-      type: ['museum']//museum, cinema_theater, art_gallery, stadium
+      type: ['museum']//museum, movie_theater, art_gallery, stadium, city_hall, embassy, university
     }, callback);
   }
   //**********************************************************************************************************
@@ -107,6 +107,10 @@
         Otemp.hours = place.opening_hours.weekday_text;//details
 
       }
+	  if(place.price_level){
+		Otemp.price = place.price_level;
+		
+	  }
     }
     //console.log(place);
     newJson.push(Otemp);
