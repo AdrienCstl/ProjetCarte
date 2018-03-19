@@ -30,8 +30,10 @@ function refresh() {
     
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
-        var el = document.createElement('div');//création des éléments markers
-        el.className = 'marker';
+        var el = document.createElement('i');//création des éléments markers
+ 
+        el.className = 'red huge link map marker alternate icon';
+ 
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
 
@@ -94,8 +96,8 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpH.append(elem.nom);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
-                tmpSpan.innerHTML = "<i class=\"address book outline icon\"></i>" + elem.adresse + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.codepostal + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.telephone ;
-        tmpDivContent.append(tmpDivDesc);
+            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.adresse + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.codepostal + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.telephone ;
+             tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
         tmpDivContent.append(tmpDivExtra);
@@ -150,8 +152,10 @@ function afficheDetail(elem){
 	
 	var horaire = "<p>"+elem.ouverture+ "</p>";
 	
-	var adresse = "<p>" +adresse + " " +elem.codepostal +" "+ elem.commune+"</p>";
-	var contact = "<p>"+elem.telephone+"</p><p>"+elem.email+"</p>";
+	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.adresse + ", " +elem.codepostal +" "+ elem.commune+"</p>";
+ 
+  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.telephone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.email+"</p>";
+
 	
 	
 	//Ajout dans le template
