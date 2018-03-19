@@ -28,19 +28,19 @@ map.scrollZoom.disable();
 function refresh() {
     var compteur = 0;
     
-    geojson.features.forEach(function (marker) {
+    geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
-        var el = document.createElement('div');
+        var el = document.createElement('div');//création des éléments markers
         el.className = 'marker';
-        el.addEventListener("click", afficherPopup);
+        el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
 
         // make a marker for each feature and add to the map
-        new mapboxgl.Marker(el)
+        new mapboxgl.Marker(el) //ajout le nouveau marker a la map selon la position
             .setLngLat(marker.geometry.coordinates)
             .addTo(map);
 
-        el.id = compteur;
+        el.id = compteur; // incrémentation de l'id du compteur pour le lier à la liste de markers
         compteur++;
 
 
@@ -48,10 +48,12 @@ function refresh() {
 
 }
 
-function afficherPopup(event) {
+function afficherPopup(event) {//lors du clique sur un marker
 
     var elem = data[event.target.id];
-    afficheDetail(elem);
+    afficheDetail(elem);//afficher les details dans la partie stats
+
+    //création des elements
     var tmpDivItem = document.createElement('div');
     var tmpDivContent = document.createElement('div');
     var tmpDivMeta = document.createElement('div');
@@ -61,6 +63,7 @@ function afficherPopup(event) {
     var tmpP= document.createElement('p');
     var tmpH = document.createElement('a');
 
+    //ajout du CSS
     tmpDivItem.style.display = "none";
     tmpDivItem.style.whiteSpace = "initial";
     tmpDivItem.style.overflow = "hidden";
@@ -71,7 +74,7 @@ function afficherPopup(event) {
     scrollTop: $("#stats").offset().top
 }, 600); };
     
-
+    //ajout du nom des class
 
     tmpDivItem.className = 'item';
     tmpDivItem.id = 'popup';
@@ -84,7 +87,7 @@ function afficherPopup(event) {
 
     
 
-
+    //ajout des éléments créés dans la page
 
     tmpDivItem.append(tmpDivContent);
         tmpDivContent.append(tmpH);
@@ -103,7 +106,7 @@ function afficherPopup(event) {
 
 }
 
-function addMarkerstoList(features, data) {
+function addMarkerstoList(features, data) {//ajout des markers a la liste de marker
     let currentSize = features.length;
     for (var i = currentSize; i < window.data.length + currentSize; i++) {
         features[i] = {};
@@ -124,14 +127,14 @@ $.post("/data", function (d) {
 });
 
 function reload(){
-    geojson.features = [];
+    geojson.features = []; //on vide le tableau de markers
     console.log(geojson.features);
-    $.post("/data",{type:"HOTELLERIE"}, function (d) {
+    $.post("/data",{type:"HOTELLERIE"}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
     
-        addMarkerstoList(geojson.features, data);
-        refresh();
+        addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
+        refresh(); //refresh la map
     });
 }
 
@@ -172,7 +175,7 @@ function modifyType(){
 
     var dropdown = document.getElementById("cat");
     
-
+    $('.marker').remove();//on supprime les markers
     console.log(dropdown.value);
-  //  reload();
+   reload();// on appelle la fonction de rechargement
 }
