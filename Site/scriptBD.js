@@ -47,13 +47,14 @@ exports.getDataByNameAndType = function(res, name, type){
 	});
 }
 
-exports.addData = function(res, data)
+exports.addData = function(res, data, type)
 {
    var currentCollection;
-
-   switch (data[0].type) {
+   console.log(type);
+   switch (type) {
         case "Musée":
            currentCollection = museeGoogle;
+           console.log("test");
            break;
         case "Cinema":
             currentCollection = cinemaGoogle;
@@ -79,7 +80,7 @@ exports.addData = function(res, data)
 	for(var i = 0; i < data.length; i++)
 	{
         data[i]._id = new ObjectID();
-		currentCollection.insert(data[i]);
+		currentCollection.create(data[i]);
 	}
 }
 

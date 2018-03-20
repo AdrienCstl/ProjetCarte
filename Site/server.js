@@ -12,11 +12,14 @@ app.use('/public',express.static('public')) //define the route for everything in
 
 
 //Change the default parser by body parser
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+
+
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({
-    extended: false,
-    parameterLimit: 1000000 // experiment with this parameter and tweak
+    extended: true,
+    parameterLimit: 10000000, // experiment with this parameter and tweak
+    limit: '50mb'
 }));
 
 console.log('Serveur lancé');
@@ -50,12 +53,18 @@ app.post('/data', function (request,response) {
 
 
 app.post('/addData', function(request,response){
+
 	//If threre is the good param
-	if(request.body.data)
+	if(request.body.data && request.body.type)
 	{
 		db.connection();
-		addData(response, data);
+		db.addData(response, request.body.data, request.body.type);
 	}
+
+});
+
+app.get('/importData', function(request,response){
+	response.sendFile(__dirname + '/data_collection.html');
 
 });
 
