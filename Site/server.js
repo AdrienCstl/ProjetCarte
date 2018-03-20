@@ -58,7 +58,7 @@ app.post('/addData', function(request,response){
 	if(request.body.data && request.body.type)
 	{
 		db.connection();
-		db.addData(response, request.body.data, request.body.type);
+		//db.addData(response, request.body.data, request.body.type);
 	}
 
 });
