@@ -13,8 +13,11 @@ app.use('/public',express.static('public')) //define the route for everything in
 
 //Change the default parser by body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
+//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: false,
+    parameterLimit: 1000000 // experiment with this parameter and tweak
+}));
 
 console.log('Serveur lancé');
 
@@ -53,8 +56,7 @@ app.post('/addData', function(request,response){
 		db.connection();
 		addData(response, data);
 	}
-	
+
 });
 
 app.listen(8080)
-

@@ -12,7 +12,7 @@ exports.connection = function (){
 
 //Send all the data
 exports.getData = function(res) {
-	lieux.find({}).exec(function (err, lieu) 
+	lieux.find({}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
@@ -21,7 +21,7 @@ exports.getData = function(res) {
 
 //Send data with a specified name
 exports.getDataByName = function(res, name){
-	lieux.find({nom: name}).exec(function (err, lieu) 
+	lieux.find({nom: name}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
@@ -40,7 +40,7 @@ exports.getDataByType = function(res, type){
 
 //Send data with a specified name and a specified type
 exports.getDataByNameAndType = function(res, name, type){
-	lieux.find({nom: name, type: type}).exec(function (err, lieu) 
+	lieux.find({nom: name, type: type}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
@@ -49,10 +49,37 @@ exports.getDataByNameAndType = function(res, name, type){
 
 exports.addData = function(res, data)
 {
+   var currentCollection;
+
+   switch (data[0].type) {
+        case "Musée":
+           currentCollection = museeGoogle;
+           break;
+        case "Cinema":
+            currentCollection = cinemaGoogle;
+            break;
+        case "Gallerie d'art":
+            currentCollection =gallerieGoogle;
+            break;
+        case "Stade":
+            currentCollection = stadeGoogle;
+            break;
+        case "Mairie":
+            currentCollection = mairieGoogle;
+            break;
+        case "Ambassade":
+            currentCollection = ambassadeGoogle;
+            break;
+        case "Université":
+            currentCollection = universiteGoogle;
+            break;
+   }
+
 	var ObjectID = require('mongodb').ObjectID;
 	for(var i = 0; i < data.length; i++)
 	{
-		lieuxGoogle.insert(data[i]);
+        data[i]._id = new ObjectID();
+		currentCollection.insert(data[i]);
 	}
 }
 
@@ -64,7 +91,7 @@ codepostal: String, email: String, geometry: { coordinates: [ [Number], [Number]
 var lieuxTest = mongoose.model('lieux', schema, 'lieux');
 
 //Bd de google
-var schemaGoogle = new mongoose.Schema({ 
+var schemaGoogle = new mongoose.Schema({
     name: String,
     type: String,
     adress: String,
@@ -73,13 +100,18 @@ var schemaGoogle = new mongoose.Schema({
     hours: [String],
     price: String,
     rating: Number,
-    icon: String, 
-    reviews: [{author: String,rating: Number, text: String, time: Number}] 
+    icon: String,
+    reviews: [{author: String,rating: Number, text: String, time: Number}]
 });
-  
-var lieuxGoogle = mongoose.model('lieuxGoogle', schemaGoogle, 'lieuxGoogle');
+
+//Collection de google
+var museeGoogle = mongoose.model('museeGoogle', schemaGoogle, 'museeGoogle');
+var cinemaGoogle = mongoose.model('cinemaGoogle', schemaGoogle, 'cinemaGoogle');
+var gallerieGoogle = mongoose.model('gallerieGoogle', schemaGoogle, 'gallerieGoogle');
+var stadeGoogle = mongoose.model('stadeGoogle', schemaGoogle, 'stadeGoogle');
+var mairieGoogle = mongoose.model('mairieGoogle', schemaGoogle, 'mairieGoogle');
+var ambassadeGoogle = mongoose.model('ambassadeGoogle', schemaGoogle, 'ambassadeGoogle');
+var universiteGoogle = mongoose.model('universiteGoogle', schemaGoogle, 'universiteGoogle');
 
 //Definis quel bd on utilise
 var lieux = lieuxTest;
-
-
