@@ -96,7 +96,7 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpH.append(elem.nom);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
-            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone ;
+            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i> " + elem.website;
              tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
@@ -130,7 +130,7 @@ $.post("/data", function (d) {
 
 function reload(){
     geojson.features = []; //on vide le tableau de markers
-    
+   
     var dropdown = document.getElementById("cat");
     console.log(dropdown.value);
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
@@ -182,6 +182,5 @@ function modifyType(){
     var dropdown = document.getElementById("cat");
     
     $('.marker').remove();//on supprime les markers
-    console.log(dropdown.value);
    reload();// on appelle la fonction de rechargement
 }
