@@ -14,7 +14,7 @@ var schemaGoogle = new mongoose.Schema({
     address: String,
     postcode: String,
     town: String,
-    pos: {x: Number, y:Number}
+    pos: {x: Number, y:Number},
     phone: String,
     website: String,
     hours: [String],
