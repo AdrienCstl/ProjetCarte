@@ -96,7 +96,7 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpH.append(elem.nom);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
-            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.adresse + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.codepostal + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.telephone ;
+            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone ;
              tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
@@ -130,8 +130,10 @@ $.post("/data", function (d) {
 
 function reload(){
     geojson.features = []; //on vide le tableau de markers
-    console.log(geojson.features);
-    $.post("/data",{type:"HOTELLERIE"}, function (d) { //on récupere les données selon le type
+    
+    var dropdown = document.getElementById("cat");
+    console.log(dropdown.value);
+    $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
     
@@ -146,15 +148,15 @@ function afficheDetail(elem){
 	var deuxiemeligne = $(".row")[1];
 	
 	//Champs à ajouter
-	var titre = '<h3>' + elem.nom +'</h3>';
+	var titre = '<h3>' + elem.name +'</h3>';
 	var type = '<p>'+elem.type+'</p>';
 	var description = "<p>Y a rien</p>";
 	
-	var horaire = "<p>"+elem.ouverture+ "</p>";
+	var horaire = "<p>"+elem.hours+ "</p>";
 	
-	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.adresse + ", " +elem.codepostal +" "+ elem.commune+"</p>";
+	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
  
-  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.telephone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.email+"</p>";
+  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
 
 	
 	
