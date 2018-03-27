@@ -32,7 +32,7 @@ function refresh() {
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
  
-        el.className = 'red huge link map marker alternate icon';
+        el.className = 'grey large link map pin  icon';
  
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
@@ -114,7 +114,12 @@ function addMarkerstoList(features, data) {//ajout des markers a la liste de mar
         features[i] = {};
         features[i].type = "Feature";
         features[i].properties = {message: data[i - currentSize].type};
-        features[i].geometry = data[i - currentSize].geometry;
+        console.log(features);
+        features[i].geometry = {};
+        features[i].geometry.type = "Point";
+        features[i].geometry.coordinates = [];
+        features[i].geometry.coordinates[0] = data[i - currentSize].pos.x;
+        features[i].geometry.coordinates[1] = data[i - currentSize].pos.y;
     }    
     
 }
@@ -136,7 +141,7 @@ function reload(){
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-    
+        $('.marker').remove();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
@@ -181,6 +186,38 @@ function modifyType(){
 
     var dropdown = document.getElementById("cat");
     
-    $('.marker').remove();//on supprime les markers
+    
    reload();// on appelle la fonction de rechargement
 }
+
+
+/*
+L.Marker.Autoresizable = L.Marker.extend({
+
+    onAdd: {
+        map.on('zoomend', this._changeIcon, this);
+    },
+
+    onRemove: function(map) {
+        map.off('zoomend', this._changeIcon, this);
+    },
+
+    _changeIcon: function(ev) {
+        var zoom = this._map.getZoom();
+
+        if (zoom <= 10) {
+            el.className = 'red  link map pin alternate icon';
+            this.setIcon(...);
+        } elseif (zoom > 10 && zoom <= 15) {
+            this.setIcon(...);
+        } else {
+            this.setIcon(...);
+        }
+
+    }
+
+});
+
+L.marker.autoresizable = function(latlng, options) {
+    return new L.Marker.Autoresizable(latlng, options);
+}*/
