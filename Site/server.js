@@ -6,7 +6,7 @@ let db = require('./scriptBD.js')
 let bodyParser = require('body-parser')
 
 //app.set('view engine','ejs') // set ejs as 'html' view engine
-//app.set('views', path.join(__dirname, '/public')) //set 'public' as directory name instead of views (by default)
+//app.set('views', path.join(__dirname, '/public')) //set  'public' as directory name instead of views (by default)
 
 app.use('/public',express.static('public')) //define the route for everything in public with the prefix /public (not needed but interrested)
 
