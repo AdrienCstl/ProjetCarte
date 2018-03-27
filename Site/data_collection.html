@@ -40,7 +40,7 @@
     service.nearbySearch({
       location: pyrmont,
       radius: 8000,
-      type: ['museum']//museum: musee, movie_theater: cinema, art_gallery: gallerie, stadium: stade, city_hall: mairie, embassy: ambassade, university: universite
+      type: ['embassy']//museum: musee, movie_theater: cinema, art_gallery: gallerie, stadium: stade, city_hall: mairie, embassy: ambassade, university: universite
     }, callback);
   }
   //**********************************************************************************************************
@@ -86,7 +86,7 @@
       Otemp.pos = {};
       Otemp.pos.x = place.geometry.location.lng();
       Otemp.pos.y = place.geometry.location.lat();
-      Otemp.type = "Musée";
+      Otemp.type = "ambassade";
       Otemp.address = place.formatted_address.split(",")[0];
       Otemp.postcode =place.formatted_address.split(",")[1].split(" ")[1];
       Otemp.town = place.formatted_address.split(",")[1].split(" ")[2];
