@@ -31,9 +31,9 @@ function refresh() {
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
-
-        el.className = 'red huge link map marker alternate icon';
-
+ 
+        el.className = 'grey large link map pin  icon';
+ 
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
 
@@ -114,7 +114,12 @@ function addMarkerstoList(features, data) {//ajout des markers a la liste de mar
         features[i] = {};
         features[i].type = "Feature";
         features[i].properties = {message: data[i - currentSize].type};
-        features[i].geometry = data[i - currentSize].geometry;
+        console.log(features);
+        features[i].geometry = {};
+        features[i].geometry.type = "Point";
+        features[i].geometry.coordinates = [];
+        features[i].geometry.coordinates[0] = data[i - currentSize].pos.x;
+        features[i].geometry.coordinates[1] = data[i - currentSize].pos.y;
     }    
     
 }
@@ -136,7 +141,7 @@ function reloadType(){
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-
+        $('.marker').remove();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
@@ -144,8 +149,6 @@ function reloadType(){
 
 //Effectue un tri par type
 function modifyType(){
-
-    $('.marker').remove();//on supprime les markers
    reloadType();// on appelle la fonction de rechargement
 }
 
