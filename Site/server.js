@@ -8,17 +8,22 @@ let bodyParser = require('body-parser')
 //app.set('view engine','ejs') // set ejs as 'html' view engine
 //app.set('views', path.join(__dirname, '/public')) //set  'public' as directory name instead of views (by default)
 
+//Change le nombre de requete max au serveur
+require('events').EventEmitter.prototype._maxListeners = 100;
+
 app.use('/public',express.static('public')) //define the route for everything in public with the prefix /public (not needed but interrested)
+
+
 
 
 //Change the default parser by body parser
 app.use(bodyParser.json({limit: '50mb'}));
 
 
-//app.use(bodyParser.urlencoded({ extended: true }));
+//Taille des parametres
 app.use(bodyParser.urlencoded({
     extended: true,
-    parameterLimit: 10000000, // experiment with this parameter and tweak
+    parameterLimit: 10000000,
     limit: '50mb'
 }));
 

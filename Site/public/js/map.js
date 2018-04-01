@@ -185,29 +185,54 @@ function afficheDetail(elem){
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 
-//TODO: ATTENTION PROBLEME SI IL Y A RECHERCHE DE TYPE PUIS DE NOM OU L'inverse
+//TODO: Doit on enlever l'evenemnt sur le on change du dropdown ?
+//TODO: Mettre un temporisateur "entre chaque clic sur le Search
 
 //Tri par nom
-function reloadNom(){
+function reloadSearch(){
     geojson.features = []; //on vide le tableau de markers
     var nameSearch = document.getElementsByTagName("input")[0].value;
-    if(nameSearch != "")
+    var typeSearch = document.getElementById("cat").value;
+
+    //Recherche par nom et type
+    if(nameSearch != "" && typeSearch != "all")
     {
-        $.post("/data",{name:nameSearch}, function (d) { //on récupere les données selon le type
+        $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pin').remove();//on supprime les markers
-            addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
-            refresh(); //refresh la map
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
         });
     }
-    //Pas de valeur dans le champs  on renvoi toutes les données
+    //Recherche par nom
+    else if(nameSearch != "")
+    {
+        $.post("/data",{name:nameSearch}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
+    //Recherche par type
+    else if (typeSearch != "all") {
+        $.post("/data",{type:typeSearch}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
+    //On envoi toutes les données
     else {
         //Requetes AJAX
         $.post("/data",{type: "all"}, function (d) {
             $(".result").html(d);
             data = d;
-
+            $('.pin').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
