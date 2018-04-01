@@ -185,16 +185,31 @@ function afficheDetail(elem){
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 
+//TODO: ATTENTION PROBLEME SI IL Y A RECHERCHE DE TYPE PUIS DE NOM OU L'inverse
+
 //Tri par nom
 function reloadNom(){
     geojson.features = []; //on vide le tableau de markers
-    var nameSearch = document.getElementByTagName("input")[0].value;
+    var nameSearch = document.getElementsByTagName("input")[0].value;
+    if(nameSearch != "")
+    {
+        $.post("/data",{name:nameSearch}, function (d) { //on récupere les données selon le type
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();//on supprime les markers
+            addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
+            refresh(); //refresh la map
+        });
+    }
+    //Pas de valeur dans le champs  on renvoi toutes les données
+    else {
+        //Requetes AJAX
+        $.post("/data",{type: "all"}, function (d) {
+            $(".result").html(d);
+            data = d;
 
-    $.post("/data",{name:nameSearch}, function (d) { //on récupere les données selon le type
-        $(".result").html(d);
-        data = d;
-        $('.pin').remove();//on supprime les markers
-        addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
-        refresh(); //refresh la map
-    });
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
 }
