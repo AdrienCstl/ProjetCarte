@@ -27,13 +27,13 @@ map.scrollZoom.disable();
 
 function refresh() {
     var compteur = 0;
-    
+
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
- 
+
         el.className = 'red huge link map marker alternate icon';
- 
+
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
 
@@ -74,8 +74,8 @@ function afficherPopup(event) {//lors du clique sur un marker
    // tmpH.href = "#stats";
    tmpH.onclick = function() { $('html, body').animate({
     scrollTop: $("#stats").offset().top
-}, 600); };
-    
+    }, 600); };
+
     //ajout du nom des class
 
     tmpDivItem.className = 'item';
@@ -128,59 +128,71 @@ $.post("/data", function (d) {
     refresh();
 });
 
-function reload(){
+function reloadType(){
     geojson.features = []; //on vide le tableau de markers
-   
+
     var dropdown = document.getElementById("cat");
     console.log(dropdown.value);
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-    
+
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
 }
 
+//Effectue un tri par type
+function modifyType(){
+
+    $('.marker').remove();//on supprime les markers
+   reloadType();// on appelle la fonction de rechargement
+}
 
 function afficheDetail(elem){
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
-	
+
 	//Champs à ajouter
 	var titre = '<h3>' + elem.name +'</h3>';
 	var type = '<p>'+elem.type+'</p>';
 	var description = "<p>Y a rien</p>";
-	
+
 	var horaire = "<p>"+elem.hours+ "</p>";
-	
+
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
- 
+
   var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
 
-	
-	
+
+
 	//Ajout dans le template
-	
+
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
-		
+
 	//Ajout dans la deuxieme ligne
 		//Ajout dans la premiere colonne
 		deuxiemeligne.getElementsByClassName('three wide column')[0].innerHTML = horaire;
-		
+
 		//Ajout dans la deuxieme colonne
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 
-function modifyType(){
+//Tri par nom
+function reloadNom(){
+    geojson.features = []; //on vide le tableau de markers
+    var nameSearch = document.getElementByTagName("input")[0].value;
 
-    var dropdown = document.getElementById("cat");
-    
-    $('.marker').remove();//on supprime les markers
-   reload();// on appelle la fonction de rechargement
+    $.post("/data",{name:nameSearch}, function (d) { //on récupere les données selon le type
+        $(".result").html(d);
+        data = d;
+        $('.marker').remove();//on supprime les markers
+        addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
+        refresh(); //refresh la map
+    });
 }
