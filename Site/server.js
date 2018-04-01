@@ -34,6 +34,8 @@ app.get('/', function (request,response) { //function which send the next conten
 //Get data depending of params
 app.post('/data', function (request,response) {
 	db.connection();
+
+    //TODO: Elle est inutile non ?
 	if(request.body.name && request.body.type)
 	{
 		db.getDataByNameAndType(response, request.body.name, request.body.type);
@@ -42,13 +44,14 @@ app.post('/data', function (request,response) {
 	{
 		db.getDataByName(response, request.body.name);
 	}
+    else if(request.body.type == "all"){
+		db.getData(response);
+	}
 	else if(request.body.type)
 	{
 		db.getDataByType(response,request.body.type);
 	}
-	else{
-		db.getData(response);
-	}
+
 });
 
 
