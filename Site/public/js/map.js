@@ -3,7 +3,7 @@ var data;
 
 // Fin des requetes
 
-//create tab 
+//create tab
 mapboxgl.accessToken = 'undefined';
 var geojson = {
     "type": "FeatureCollection",
@@ -27,13 +27,13 @@ map.scrollZoom.disable();
 
 function refresh() {
     var compteur = 0;
-    
+
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
- 
+
         el.className = 'grey large link map pin  icon';
- 
+
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
 
@@ -74,8 +74,8 @@ function afficherPopup(event) {//lors du clique sur un marker
    // tmpH.href = "#stats";
    tmpH.onclick = function() { $('html, body').animate({
     scrollTop: $("#stats").offset().top
-}, 600); };
-    
+    }, 600); };
+
     //ajout du nom des class
 
     tmpDivItem.className = 'item';
@@ -87,7 +87,7 @@ function afficherPopup(event) {//lors du clique sur un marker
     tmpDivExtra.className = "extra";
     tmpDivContent.className = "content";
 
-    
+
 
     //ajout des éléments créés dans la page
 
@@ -104,7 +104,7 @@ function afficherPopup(event) {//lors du clique sur un marker
 
     $("#navMap")[0].firstElementChild.replaceChild(tmpDivItem, $("#navMap")[0].firstElementChild.lastElementChild);
     $("#popup").slideToggle("fast");
-    
+
 
 }
 
@@ -114,18 +114,17 @@ function addMarkerstoList(features, data) {//ajout des markers a la liste de mar
         features[i] = {};
         features[i].type = "Feature";
         features[i].properties = {message: data[i - currentSize].type};
-        console.log(features);
         features[i].geometry = {};
         features[i].geometry.type = "Point";
         features[i].geometry.coordinates = [];
         features[i].geometry.coordinates[0] = data[i - currentSize].pos.x;
         features[i].geometry.coordinates[1] = data[i - currentSize].pos.y;
-    }    
-    
+    }
+
 }
 
 //Requetes AJAX
-$.post("/data", function (d) {
+$.post("/data",{type: "all"}, function (d) {
     $(".result").html(d);
     data = d;
 
@@ -133,91 +132,109 @@ $.post("/data", function (d) {
     refresh();
 });
 
-function reload(){
+function reloadType(){
     geojson.features = []; //on vide le tableau de markers
-   
+
     var dropdown = document.getElementById("cat");
     console.log(dropdown.value);
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-        $('.marker').remove();//on supprime les markers
+        $('.pin').remove();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
 }
 
+//Effectue un tri par type
+function modifyType(){
+   reloadType();// on appelle la fonction de rechargement
+}
 
 function afficheDetail(elem){
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
-	
+
 	//Champs à ajouter
 	var titre = '<h3>' + elem.name +'</h3>';
 	var type = '<p>'+elem.type+'</p>';
 	var description = "<p>Y a rien</p>";
-	
+
 	var horaire = "<p>"+elem.hours+ "</p>";
-	
+
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
- 
+
   var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
 
-	
-	
+
+
 	//Ajout dans le template
-	
+
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
-		
+
 	//Ajout dans la deuxieme ligne
 		//Ajout dans la premiere colonne
 		deuxiemeligne.getElementsByClassName('three wide column')[0].innerHTML = horaire;
-		
+
 		//Ajout dans la deuxieme colonne
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 
-function modifyType(){
+//TODO: Doit on enlever l'evenemnt sur le on change du dropdown ?
+//TODO: Mettre un temporisateur "entre chaque clic sur le Search
 
-    var dropdown = document.getElementById("cat");
-    
-    
-   reload();// on appelle la fonction de rechargement
-}
+//Tri par nom
+function reloadSearch(){
+    geojson.features = []; //on vide le tableau de markers
+    var nameSearch = document.getElementsByTagName("input")[0].value;
+    var typeSearch = document.getElementById("cat").value;
 
-
-/*
-L.Marker.Autoresizable = L.Marker.extend({
-
-    onAdd: {
-        map.on('zoomend', this._changeIcon, this);
-    },
-
-    onRemove: function(map) {
-        map.off('zoomend', this._changeIcon, this);
-    },
-
-    _changeIcon: function(ev) {
-        var zoom = this._map.getZoom();
-
-        if (zoom <= 10) {
-            el.className = 'red  link map pin alternate icon';
-            this.setIcon(...);
-        } elseif (zoom > 10 && zoom <= 15) {
-            this.setIcon(...);
-        } else {
-            this.setIcon(...);
-        }
-
+    //Recherche par nom et type
+    if(nameSearch != "" && typeSearch != "all")
+    {
+        $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
     }
-
-});
-
-L.marker.autoresizable = function(latlng, options) {
-    return new L.Marker.Autoresizable(latlng, options);
-}*/
+    //Recherche par nom
+    else if(nameSearch != "")
+    {
+        $.post("/data",{name:nameSearch}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
+    //Recherche par type
+    else if (typeSearch != "all") {
+        $.post("/data",{type:typeSearch}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
+    //On envoi toutes les données
+    else {
+        //Requetes AJAX
+        $.post("/data",{type: "all"}, function (d) {
+            $(".result").html(d);
+            data = d;
+            $('.pin').remove();
+            addMarkerstoList(geojson.features, data);
+            refresh();
+        });
+    }
+}
