@@ -164,9 +164,21 @@ function afficheDetail(elem){
 
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
 
-  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
+    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
 
+    var icon;
 
+    if(elem.photos)
+    {
+        var photos = elem.photos;
+        icon = "<img src='"+photos[0]+"'>";
+        if(photos.length > 1)
+        {
+            deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[1]+"'>"
+        }
+    }else {
+        icon = "<img src='"+elem.icon+"'>"
+    }
 
 	//Ajout dans le template
 
@@ -175,7 +187,7 @@ function afficheDetail(elem){
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
-
+        premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
 		//Ajout dans la premiere colonne
 		deuxiemeligne.getElementsByClassName('three wide column')[0].innerHTML = horaire;
@@ -185,7 +197,6 @@ function afficheDetail(elem){
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 
-//TODO: Doit on enlever l'evenemnt sur le on change du dropdown ?
 //TODO: Mettre un temporisateur "entre chaque clic sur le Search
 
 //Tri par nom
