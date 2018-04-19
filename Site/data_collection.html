@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Place searches</title>
+  <title>Import des données</title>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <style>
-  /* Always set the map height explicitly to define the size of the div
-  * element that contains the map. */
-  #map {
-    height: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+      #map {height: 100%;}
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
   </style>
   <script>
-  // This example requires the Places library. Include the libraries=places
-  // parameter when you first load the API. For example:
-  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+    var map;
+    var infowindow;
 
-  var map;
-  var infowindow;
-
-  function initMap() {
+    function initMap() {
     var pyrmont = {lat: 45.750000, lng: 4.850000};
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -43,127 +34,93 @@
       type: ['embassy']//museum: musee, movie_theater: cinema, art_gallery: gallerie, stadium: stade, city_hall: mairie, embassy: ambassade, university: universite
     }, callback);
   }
-  //**********************************************************************************************************
 
 
-  var result_concat= new Array();
-  function callback(results, status, pagination) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      var newJson= [];
-      var service = new google.maps.places.PlacesService(map);
-      result_concat = result_concat.concat(results);
-      if (pagination.hasNextPage) {
-        pagination.nextPage();
-      }
-      else{
-        for (var i = 0; i < result_concat.length; i++) {
-         // createMarker(result_concat[i]); //results[i] = les lieux avec les les infos à récupére
-          var currentTime = new Date().getTime();
-          var elapsed = 0;
+    var result_concat= new Array();
+    function callback(results, status, pagination)
+   {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var newJson= [];
+            var service = new google.maps.places.PlacesService(map);
+            result_concat = result_concat.concat(results);
+            if (pagination.hasNextPage) {
+                pagination.nextPage();
+            }
+            else{
+                for (var i = 0; i < result_concat.length; i++) {
+                    var currentTime = new Date().getTime();
+                    var elapsed = 0;
 
-        while(elapsed < 450)
-        {
-
-            elapsed =new Date().getTime() - currentTime;
+                    while(elapsed < 450){
+                        elapsed =new Date().getTime() - currentTime;
+                    }
+                    details(service, result_concat[i].place_id, newJson, i , result_concat.length);
+                }
+            }
         }
-        details(service, result_concat, result_concat[i].place_id, newJson, i , result_concat.length);
-        }
-      }
-    //  jsonFinal = jsonFinal.concat(newJson);
-
     }
-  }
 
-  function details(service,results, id, newJson,i, taille){
-    service.getDetails({
-    placeId: id
-  }, function(place, status) {
-    console.log(status);
-    //console.log("inside"+id);
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      var Otemp = {};
-      Otemp.name = place.name;
-      Otemp.pos = {};
-      Otemp.pos.x = place.geometry.location.lng();
-      Otemp.pos.y = place.geometry.location.lat();
-      Otemp.type = "ambassade";
-      Otemp.address = place.formatted_address.split(",")[0];
-      Otemp.postcode =place.formatted_address.split(",")[1].split(" ")[1];
-      Otemp.town = place.formatted_address.split(",")[1].split(" ")[2];
-      Otemp.rating = place.rating;
-      Otemp.icon = place.icon;
-      Otemp.phone = place.formatted_phone_number;//details
-      Otemp.website = place.website;//details
-      if(place.reviews){
-        Otemp.reviews= new Array(place.reviews.length);
-
-        for(var j = 0 ; j < place.reviews.length; j++){
-          Otemp.reviews[j] = {};
-          Otemp.reviews[j].author = place.reviews[j].author_name;//details
-          Otemp.reviews[j].rating = place.reviews[j].rating;//details
-          Otemp.reviews[j].text = place.reviews[j].text;//details
-          Otemp.reviews[j].time = place.reviews[j].time;//details
-        }
-      }
-
-      if(place.opening_hours){
-        Otemp.hours = new Array(place.opening_hours.weekday_text.length);
-        Otemp.hours = {};
-        Otemp.hours = place.opening_hours.weekday_text;//details
-
-      }
-	  if(place.price_level){
-		Otemp.price = place.price_level;
-
-	  }
-    }
-    //console.log(place);
-    newJson.push(Otemp);
-    console.log(newJson);
-    console.log(newJson[0].type);
-
-    //Si on a la fin
-    if(i == taille-1)
+    function details(service, id, newJson,i, taille)
     {
-        console.log("Envoi des données");
-        $.post("/addData", {data:newJson, type: newJson[0].type}, function (d) {
-            console.log('Envoyé')
+        service.getDetails({placeId: id}, function(place, status){
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var Otemp = {};
+                Otemp.name = place.name;
+                Otemp.pos = {};
+                Otemp.pos.x = place.geometry.location.lng();
+                Otemp.pos.y = place.geometry.location.lat();
+                Otemp.type = "ambassade";
+                Otemp.address = place.formatted_address.split(",")[0];
+                Otemp.postcode =place.formatted_address.split(",")[1].split(" ")[1];
+                Otemp.town = place.formatted_address.split(",")[1].split(" ")[2];
+                Otemp.rating = place.rating;
+                Otemp.icon = place.icon;
+                Otemp.phone = place.formatted_phone_number;//details
+                Otemp.website = place.website;//details
+                if(place.reviews){
+                    Otemp.reviews= new Array(place.reviews.length);
+                    for(var j = 0 ; j < place.reviews.length; j++){
+                        Otemp.reviews[j] = {};
+                        Otemp.reviews[j].author = place.reviews[j].author_name;//details
+                        Otemp.reviews[j].rating = place.reviews[j].rating;//details
+                        Otemp.reviews[j].text = place.reviews[j].text;//details
+                        Otemp.reviews[j].time = place.reviews[j].time;//details
+                    }
+                }
+
+                if(place.opening_hours){
+                    Otemp.hours = new Array(place.opening_hours.weekday_text.length);
+                    Otemp.hours = {};
+                    Otemp.hours = place.opening_hours.weekday_text;//details
+                }
+                if(place.price_level){
+                    Otemp.price = place.price_level;
+                }
+            }
+            getPhotos(place, Otemp);
+            newJson.push(Otemp);
+
+            //Si on a la fin
+            if(i == taille-1){
+                console.log(newJson);
+                /*
+                console.log("Envoi des données");
+                $.post("/addData", {data:newJson, type: newJson[0].type}, function (d) {
+                    console.log('Envoyé')
+                });*/
+            }
         });
     }
-  });
-  }
 
-  //**********************************************************************************************************
-  function createMarker(place) {
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
-    });
-    var service = new google.maps.places.PlacesService(map);
-    google.maps.event.addListener(marker, 'click', function() {
-
-
-      service.getDetails({
-        placeId: place.place_id
-      }, function(place, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location
-          });
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-            'Place ID: ' + place.formatted_phone_number + '<br>' +
-            place.formatted_address + '</div>');
-            infowindow.open(map, this);
-          });
+    function getPhotos(result, Otemp){
+        if(result.photos){
+            Otemp.photos = [];
+            for(var j = 0; j < result.photos.length && j <= 2; j++){
+                Otemp.photos[j] = result.photos[j].getUrl({'maxHeight': 270});
+            }
         }
-      });
+    }
 
-
-    });
-  }
   </script>
 </head>
 <body>
