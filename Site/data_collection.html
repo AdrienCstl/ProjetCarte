@@ -31,7 +31,7 @@
     service.nearbySearch({
       location: pyrmont,
       radius: 8000,
-      type: ['embassy']//museum: musee, movie_theater: cinema, art_gallery: gallerie, stadium: stade, city_hall: mairie, embassy: ambassade, university: universite
+      type: ['park']//museum: musee, movie_theater: cinema, art_gallery: gallerie, stadium: stade, city_hall: mairie, embassy: ambassade, university: universite, park: parc
     }, callback);
   }
 
@@ -69,7 +69,7 @@
                 Otemp.pos = {};
                 Otemp.pos.x = place.geometry.location.lng();
                 Otemp.pos.y = place.geometry.location.lat();
-                Otemp.type = "ambassade";
+                Otemp.type = "parc";
                 Otemp.address = place.formatted_address.split(",")[0];
                 Otemp.postcode =place.formatted_address.split(",")[1].split(" ")[1];
                 Otemp.town = place.formatted_address.split(",")[1].split(" ")[2];
@@ -102,10 +102,8 @@
 
             //Si on a la fin
             if(i == taille-1){
-                console.log(newJson);
-                /*
                 console.log("Envoi des données");
-                $.post("/addData", {data:newJson, type: newJson[0].type}, function (d) {
+                /*$.post("/addData", {data:newJson, type: newJson[0].type}, function (d) {
                     console.log('Envoyé')
                 });*/
             }
