@@ -21,6 +21,7 @@ var schemaGoogle = new mongoose.Schema({
     price: String,
     rating: Number,
     icon: String,
+    photos: [String],
     reviews: [{author: String,rating: Number, text: String, time: Number}],
 
 });
