@@ -21,6 +21,7 @@ var schemaGoogle = new mongoose.Schema({
     price: String,
     rating: Number,
     icon: String,
+    photos: [String],
     reviews: [{author: String,rating: Number, text: String, time: Number}],
 
 });
@@ -72,12 +73,14 @@ exports.getDataByType = function(res, type){
 
 //Send data with a specified name and a specified type
 exports.getDataByNameAndType = function(res, newName, type){
-	lieux.find({name: newName, type: type}).exec(function (err, lieu)
+	lieux.find({name: new RegExp(newName,"i"), type: type}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
 	});
 }
+
+
 
 exports.addData = function(res, data, type)
 {
