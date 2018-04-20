@@ -253,11 +253,16 @@ function afficheDetail(elem){
             {
                 deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[2]+"'>"
             }
+            else{
+                deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
+            }
+        }
+        else {
+            deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "";
+            deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
         }
     }else {
         icon = "<img src='"+elem.icon+"'>"
-        deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "";
-        deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
     }
 
 	//Ajout dans le template
