@@ -219,15 +219,15 @@ function afficheDetail(elem){
 	var titre = '<h3>' + elem.name +'</h3>';
 	var type = '<p>'+ elem.type.charAt(0).toUpperCase() +  elem.type.substring(1).toLowerCase()+' situé :</p>';
 	var horaire = "<p>"+elem.hours+ "</p>";
-
+    var titreHoraire = "<h4><i class='clock icon'></i>Horaires</h4>";
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
 
-  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
+    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
 
     var icon;
 
-  var ul=document.createElement('ul');
-  ul.id = "horaires";
+    var ul=document.createElement('ul');
+    ul.id = "horaires";
     for(var i = 0;i<7;i++){
         var li=document.createElement('li');
 
@@ -270,6 +270,7 @@ function afficheDetail(elem){
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
+        premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += titreHoraire;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += ul.innerHTML;
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
