@@ -144,7 +144,9 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpDivMeta.append(tmpSpan);
 
             tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.town +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i><a href='"+  elem.website +"'> " + elem.website + "</a>";
-
+            if(elem.website=="non renseigné"){
+                tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.town +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i> " + elem.website ;
+            }
              tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
@@ -194,7 +196,7 @@ function reloadType(){
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-        $('.pinMap').remove();//on supprime les markers
+        $('.pinMap').ve();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
@@ -223,6 +225,9 @@ function afficheDetail(elem){
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
 
   var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
+  if(elem.website == "non renseigné"){
+    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><i class=\"globe icon\"></i>"+" "+elem.website;
+    }
 
     var icon;
 
@@ -289,7 +294,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').remove();
+            $('.pinMap').ve();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -300,7 +305,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').remove();
+            $('.pinMap').ve();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -310,7 +315,7 @@ function reloadSearch(){
         $.post("/data",{type:typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').remove();
+            $('.pinMap').ve();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -321,7 +326,7 @@ function reloadSearch(){
         $.post("/data",{type: "all"}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').remove();
+            $('.pinMap').ve();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
