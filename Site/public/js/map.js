@@ -175,15 +175,17 @@ function afficheDetail(elem){
         ul.append(li);
         li.innerHTML = elem.hours[i];
     }
-    console.log(elem.hours[0]);
-    console.log(ul);
-    if(elem.photos)
+    if(elem.photos && elem.photos.length > 0)
     {
         var photos = elem.photos;
         icon = "<img src='"+photos[0]+"'>";
         if(photos.length > 1)
         {
-            deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[1]+"'>"
+            deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "<img src='"+photos[1]+"'>"
+            if(photos.length > 2)
+            {
+                deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "<img src='"+photos[1]+"'>"
+            }
         }
     }else {
         icon = "<img src='"+elem.icon+"'>"
@@ -227,7 +229,7 @@ function reloadSearch(){
         });
     }
     //Recherche par nom
-    else if(nameSearch != "") 
+    else if(nameSearch != "")
     {
         $.post("/data",{name:nameSearch}, function (d) {
             $(".result").html(d);
