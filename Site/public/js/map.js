@@ -37,35 +37,35 @@ function refresh() {
 
         if(marker.properties.message == "musee")
         {
-            el.className = 'blue large link map pin  icon';
+            el.className = 'blue large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "cinema")
         {
-            el.className = 'red large link map pin  icon';
+            el.className = 'red large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "gallerie")
         {
-            el.className = 'purple large link map pin  icon';
+            el.className = 'purple large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "stade")
         {
-            el.className = 'olive large link map pin  icon';
+            el.className = 'olive large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "mairie")
         {
-            el.className = 'orange large link map pin  icon';
+            el.className = 'orange large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "universite")
         {
-            el.className = 'pink large link map pin  icon';
+            el.className = 'pink large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "parc")
         {
-            el.className = 'green large link map pin  icon';
+            el.className = 'green large link map pin  icon pinMap';
         }
         else if(marker.properties.message == "ambassade")
         {
-            el.className = 'black large link map pin  icon';
+            el.className = 'black large link map pin  icon pinMap';
         }
 
 
@@ -194,7 +194,7 @@ function reloadType(){
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-        $('.pin').remove();//on supprime les markers
+        $('.pinMap').remove();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
@@ -295,7 +295,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pin').remove();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -306,7 +306,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pin').remove();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -316,7 +316,7 @@ function reloadSearch(){
         $.post("/data",{type:typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pin').remove();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -327,7 +327,7 @@ function reloadSearch(){
         $.post("/data",{type: "all"}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pin').remove();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
