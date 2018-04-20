@@ -23,6 +23,8 @@
     <script type="text/javascript" src="public/semantic/out/components/dropdown.js"></script>
     <script src="public/js/script.js"></script>
 
+    <link href="//cdn.bootcss.com/noUiSlider/8.5.1/nouislider.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/noUiSlider/8.5.1/nouislider.js"></script>
 
 </head>
 
@@ -78,29 +80,49 @@
                             <button class="ui icon button" onclick="reloadSearch()">
                                 <i class="search icon"></i>
                             </button>
+                          </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <select id="cat" onchange="modifyType()" class="ui dropdown button">
+                        <div class="item">
+                          <select id="cat" onchange="modifyType()" class="ui dropdown button">
                             <i class="dropdown icon"></i>
-                                    <option value="all" class="text">Choose Category</option>
-                                    <option value="cinema" class="text">Cinémas</option>
-                                    <option value="musee" class="text">Musées</option>
-                                    <option value="gallerie" class="text">Galleries d'art</option>
-                                    <option value="stade" class="text">Stades</option>
-                                    <option value="universite" class="text">Universités</option>
-                                    <option value="parc" class="text">Parcs</option>
-                                    <option value="ambassade" class="text">Ambassades</option>
-                                    <option value="mairie" class="text">Mairies</option>
-                        </select>
-                    </div>
-                    <div class="ui divider"></div>
-                    <div class="item">
-                        
-                    </div>
-                </div>
+                            <option value="all" class="text">Choisir catégorie</option>
+                            <option value="cinema" class="text">Cinémas</option>
+                            <option value="musee" class="text">Musées</option>
+                            <option value="gallerie" class="text">Galleries d'art</option>
+                            <option value="stade" class="text">Stades</option>
+                            <option value="universite" class="text">Universités</option>
+                            <option value="parc" class="text">Parcs</option>
+                            <option value="ambassade" class="text">Ambassade</option>
+                          </select>
 
-            </div>
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="item">
+                          <div id="select" class="ui multiple selection dropdown">
+                            <input name="gender" value="0,1" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Default</div>
+                            <div class="menu">
+                              <div class="item" data-value="0">Lundi</div>
+                              <div class="item" data-value="1">Mardi</div>
+                              <div class="item" data-value="2">Mercredi</div>
+                              <div class="item" data-value="3">Jeudi</div>
+                              <div class="item" data-value="4">Vendredi</div>
+                              <div class="item" data-value="5">Samedi</div>
+                              <div class="item" data-value="6">Dimanche</div>
+                            </div>
+                          </div>
+                          <div id="buttonclear" class="ui button">
+                            Clear
+                          </div>
+                        </div>
+
+                        <div class="item">
+                          <div id="slider"></div>
+                        </div>
+                      </div>
+
+                    </div>
         </div>
 
 
@@ -111,7 +133,7 @@
 
 
 <div id="stats" class="ui vertical stripe segment">
-    <div class="ui  grid">
+    <div class="ui celled grid">
         <div class="row">
             <div class="three wide column">
                 <img class="ui wireframe image" src="public/medias/images/image.png">
@@ -141,21 +163,23 @@
             <div class="three wide column">
                 <h4 class="ui inverted header">About</h4>
                 <div class="ui inverted link list">
-                    <a href="https://www.univ-lyon1.fr/" class="item">University</a>
-                    <a href="https://www.lyon.fr/" class="item">Lyon</a>
+                    <a href="#" class="item">Sitemap</a>
+                    <a href="#" class="item">Contact Us</a>
+                    <a href="#" class="item">University</a>
+                    <a href="#" class="item">Lyon</a>
                 </div>
             </div>
             <div class="three wide column">
                 <h4 class="ui inverted header">Navigation</h4>
                 <div class="ui inverted link list">
-                    <a href="#top" class="item">Home</a>
-                    <a href="#map" class="item">Map</a>
-                    <a href="#stats" class="item">Stats</a>
+                    <a href="#" class="item">Home</a>
+                    <a href="#" class="item">Map</a>
+                    <a href="#" class="item">Stats</a>
                 </div>
             </div>
             <div class="seven wide column">
-                <h4 class="ui inverted header">EasyLyon</h4>
-                <p>Development project. Licence 3 informatique, Université Claude Bernard Lyon 1</p>
+                <h4 class="ui inverted header">ProjetCarte</h4>
+                <p>Projet de développement. Licence 3 informatique, université Claude Bernard Lyon 1</p>
                 <p>2018</p>
             </div>
         </div>

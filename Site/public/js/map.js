@@ -328,6 +328,30 @@ function reloadSearch(){
     }
 }
 
+//slider
+var slider = document.getElementById('slider');
+noUiSlider.create(slider, {
+  start: [ 0,  23], // Handle start position
+  step: 1, // Slider moves in increments of '10'
+  margin: 1, // Handles must be more than '20' apart
+  connect: true, // Display a colored bar between the handles
+  orientation: 'horizontal', // Orient the slider vertically
+  behaviour: 'tap-drag', // Move handle on tap, bar is draggable
+  range: { // Slider can select '0' to '100'
+  'min': 0,
+  'max': 23
+},
+tooltips: true
+});
+
+slider.style.width = '180px';
+slider.style.margin = '20 auto 20px';
+
+slider.noUiSlider.on('update', function( values, handle ) {
+
+  var value = values[handle];
+});
+
 //Tri par horaire
 function reloadHours(day, hours)
 {
