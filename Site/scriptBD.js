@@ -21,6 +21,7 @@ var schemaGoogle = new mongoose.Schema({
     price: String,
     rating: Number,
     icon: String,
+    photos: [String],
     reviews: [{author: String,rating: Number, text: String, time: Number}],
 
 });
@@ -52,7 +53,9 @@ exports.getData = function(res) {
 
 //Send data with a specified name
 exports.getDataByName = function(res, name){
-	lieux.find({nom: name}).exec(function (err, lieu)
+
+    //L'option i permet d'éviter les case sensitive
+	lieux.find({name: new RegExp(name, "i")}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
@@ -69,13 +72,15 @@ exports.getDataByType = function(res, type){
 }
 
 //Send data with a specified name and a specified type
-exports.getDataByNameAndType = function(res, name, type){
-	lieux.find({nom: name, type: type}).exec(function (err, lieu)
+exports.getDataByNameAndType = function(res, newName, type){
+	lieux.find({name: new RegExp(newName,"i"), type: type}).exec(function (err, lieu)
 	{
 		if (err) return handleError(err);
 		res.json(lieu);
 	});
 }
+
+
 
 exports.addData = function(res, data, type)
 {
