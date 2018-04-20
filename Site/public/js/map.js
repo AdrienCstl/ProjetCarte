@@ -93,10 +93,10 @@ function afficherPopup(event) {//lors du clique sur un marker
 
     tmpDivItem.append(tmpDivContent);
         tmpDivContent.append(tmpH);
-            tmpH.append(elem.nom);
+            tmpH.append(elem.name);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
-            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.commune +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i> " + elem.website;
+            tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.town +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i><a href='"+  elem.website +"'> " + elem.website + "</a>";
              tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
@@ -148,7 +148,7 @@ function reloadType(){
 
 //Effectue un tri par type
 function modifyType(){
-   reloadType();// on appelle la fonction de rechargement
+   reloadSearch();// on appelle la fonction de rechargement
 }
 
 function afficheDetail(elem){
@@ -164,10 +164,19 @@ function afficheDetail(elem){
 
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
 
-    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><p><i class=\"envelope icon\"></i>"+" "+elem.website+"</p>";
+  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
 
     var icon;
 
+  var ul=document.createElement('ul');
+  ul.id = "horaires";
+    for(var i = 0;i<7;i++){
+        var li=document.createElement('li');
+        ul.append(li);
+        li.innerHTML = elem.hours[i];
+    }
+    console.log(elem.hours[0]);
+    console.log(ul);
     if(elem.photos)
     {
         var photos = elem.photos;
@@ -189,8 +198,9 @@ function afficheDetail(elem){
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
-		//Ajout dans la premiere colonne
-		deuxiemeligne.getElementsByClassName('three wide column')[0].innerHTML = horaire;
+        //Ajout dans la premiere colonne
+        
+		deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
 
 		//Ajout dans la deuxieme colonne
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
@@ -217,7 +227,7 @@ function reloadSearch(){
         });
     }
     //Recherche par nom
-    else if(nameSearch != "")
+    else if(nameSearch != "") 
     {
         $.post("/data",{name:nameSearch}, function (d) {
             $(".result").html(d);
