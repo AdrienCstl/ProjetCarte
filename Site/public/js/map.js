@@ -179,8 +179,8 @@ $.post("/data",{type: "all"}, function (d) {
     for(l = 0; l < data.length ; l++){
         if(data[l]._id == "5ad874a16f7d163a7c17361d"){
             afficheDetail(data[l]);
-         }
-     }
+        }
+    }
 
     addMarkerstoList(geojson.features, data);
     refresh();
@@ -190,7 +190,7 @@ function reloadType(){
     geojson.features = []; //on vide le tableau de markers
 
     var dropdown = document.getElementById("cat");
-    
+
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
@@ -231,7 +231,7 @@ function afficheDetail(elem){
   ul.id = "horaires";
     for(var i = 0;i<7;i++){
         var li=document.createElement('li');
-        
+
         if(elem.hours[i]){
             ul.append(li);
             li.innerHTML = elem.hours[i];
@@ -241,7 +241,7 @@ function afficheDetail(elem){
                ul.append(li);
             }
         }
-        
+
     }
     if(elem.photos && elem.photos.length > 0)
     {
@@ -261,7 +261,7 @@ function afficheDetail(elem){
         deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
     }
 
-    
+
 
 	//Ajout dans le template
 
@@ -272,7 +272,7 @@ function afficheDetail(elem){
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
         //Ajout dans la premiere colonne
-        
+
 		//deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
 
         //Ajout dans la deuxieme colonne
@@ -332,4 +332,65 @@ function reloadSearch(){
             refresh();
         });
     }
+}
+
+//Tri par horaire
+function reloadHours(day, hours)
+{
+    var newData = [];
+    for(var i =0; i < data.length; i++)
+    {
+        if(data[i].hours)
+        {
+            newData.push(data[i]);
+        }
+        else
+        {
+            var next = false;
+
+            //Teste si les jours ne sont pas fermé
+            for(var j =0; j < day.length; j++)
+            {
+                var index = day[j];
+                if(data[i].hours[index].search("Fermé") > -1)
+                {
+                    //On ne l'ajoute pas au tableau
+                    next = true;
+                    break;
+                }
+            }
+
+            if(!next)
+            {
+                //Teste les hoaraires
+                for(var j =0; j < day.length; j++)
+                {
+                    var index = day[j];
+                    var borneInf = hours[0];
+                    var borneSup = hours[1];
+
+                    //Recupération des heures
+                    var split = data[i].hours[index].split(" ");
+                    var bornes = [split[1].split(":")[0], split[3].split(":")[0]];
+
+                    borne[0] = Number(borne[0]);
+                    borne[1] = Number(borne[1]);
+
+                    if(borne[0] < borneInf || borne[1] > borneSup)
+                    {
+                        //On ne l'ajoute pas au tableau
+                        next = true;
+                        break;
+                    }
+                }
+
+                if(next)
+                {
+                    newData.push(data[i]);
+                }
+
+            }
+        }
+    }
+    data = newData;
 }
