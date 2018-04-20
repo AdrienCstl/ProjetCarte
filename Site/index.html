@@ -6,23 +6,25 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet'/>
 
-    <!-- CSS --> 
-    <link rel="stylesheet" href="public/semantic/out/semantic.min.css"> 
-    <link rel="stylesheet" href="public/css/style.css"> 
-    <link rel="stylesheet" type="text/css" href="public/semantic/out/components/dropdown.css"> 
- 
- 
-    <!-- JS --> 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
- 
-   
-    <script src="public/semantic/out/components/visibility.js"></script> 
-    <script src="public/semantic/out/components/sidebar.js"></script> 
-    <script src="public/semantic/out/components/transition.js"></script> 
-    <script type="text/javascript" src="public/semantic/out/components/dropdown.js"></script> 
-    <script src="public/js/script.js"></script> 
+    <!-- CSS -->
+    <link rel="stylesheet" href="public/semantic/out/semantic.min.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/semantic/out/components/dropdown.css">
 
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script src="public/semantic/out/components/visibility.js"></script>
+    <script src="public/semantic/out/components/sidebar.js"></script>
+    <script src="public/semantic/out/components/transition.js"></script>
+    <script type="text/javascript" src="public/semantic/out/components/dropdown.js"></script>
+    <script src="public/js/script.js"></script>
+
+    <link href="//cdn.bootcss.com/noUiSlider/8.5.1/nouislider.min.css" rel="stylesheet">
+    <script src="//cdn.bootcss.com/noUiSlider/8.5.1/nouislider.js"></script>
 
 </head>
 
@@ -78,28 +80,49 @@
                             <button class="ui icon button" onclick="reloadSearch()">
                                 <i class="search icon"></i>
                             </button>
+                          </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <select id="cat" onchange="modifyType()" class="ui dropdown button">
+                        <div class="item">
+                          <select id="cat" onchange="modifyType()" class="ui dropdown button">
                             <i class="dropdown icon"></i>
-                                    <option value="all" class="text">Choose Category</option>
-                                    <option value="cinema" class="text">Cinémas</option>
-                                    <option value="musee" class="text">Musées</option>
-                                    <option value="gallerie" class="text">Galleries d'art</option>
-                                    <option value="stade" class="text">Stades</option>
-                                    <option value="universite" class="text">Universités</option>
-                                    <option value="parc" class="text">Parcs</option>
-                                    <option value="ambassade" class="text">Ambassade</option>
-                        </select>
-                    </div>
-                    <div class="ui divider"></div>
-                    <div class="item">
+                            <option value="all" class="text">Choisir catégorie</option>
+                            <option value="cinema" class="text">Cinémas</option>
+                            <option value="musee" class="text">Musées</option>
+                            <option value="gallerie" class="text">Galleries d'art</option>
+                            <option value="stade" class="text">Stades</option>
+                            <option value="universite" class="text">Universités</option>
+                            <option value="parc" class="text">Parcs</option>
+                            <option value="ambassade" class="text">Ambassade</option>
+                          </select>
+
+                        </div>
+                        <div class="ui divider"></div>
+                        <div class="item">
+                          <div id="select" class="ui multiple selection dropdown">
+                            <input name="gender" value="0,1" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Default</div>
+                            <div class="menu">
+                              <div class="item" data-value="0">Lundi</div>
+                              <div class="item" data-value="1">Mardi</div>
+                              <div class="item" data-value="2">Mercredi</div>
+                              <div class="item" data-value="3">Jeudi</div>
+                              <div class="item" data-value="4">Vendredi</div>
+                              <div class="item" data-value="5">Samedi</div>
+                              <div class="item" data-value="6">Dimanche</div>
+                            </div>
+                          </div>
+                          <div id="buttonclear" class="ui button">
+                            Clear
+                          </div>
+                        </div>
+
+                        <div class="item">
+                          <div id="slider"></div>
+                        </div>
+                      </div>
 
                     </div>
-                </div>
-
-            </div>
         </div>
 
 
@@ -121,7 +144,7 @@
         </div>
         <div class="row">
             <div class="three wide column">
-                
+
             </div>
             <div class="ten wide column">
                 <img class="ui wireframe image" src="public/medias/images/paragraph.png">

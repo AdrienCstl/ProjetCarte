@@ -1,12 +1,17 @@
 var data;
 $(document)
     .ready(function () {
-
+      //dropdown select
+      $('#buttonclear')
+      .on('click', function() {
+        $('#select')
+        .dropdown('clear');
+      });
 
 
         $(document).on("scroll", onScroll);
         $(document).on("scroll", onScrollSetPos);
-        
+
         // fix menu when passed
         $('.masthead')
             .visibility({
@@ -34,12 +39,12 @@ $(document)
                 scrollTop: $("#map").offset().top
             }, 1000);
         });
-        
+
         $('.s1').click(function () {
 
             $('.ss1').addClass('active');
         });
-       
+
         //smoothscroll
         $('a[href^="#"]').on('click', function (e) {
             e.preventDefault();
@@ -98,6 +103,3 @@ function onScrollSetPos(event) {
 
     var scrollPos = $(document).scrollTop();
 }
-
-
-
