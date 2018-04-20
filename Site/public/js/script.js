@@ -3,6 +3,7 @@ $(document)
     .ready(function () {
 
 
+        
 
         $(document).on("scroll", onScroll);
         $(document).on("scroll", onScrollSetPos);
@@ -23,7 +24,7 @@ $(document)
             .dropdown()
         ;
 
-
+        
 
         // create sidebar and attach to menu open
         $('.ui.sidebar')
