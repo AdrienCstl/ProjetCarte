@@ -26,17 +26,52 @@ map.scrollZoom.disable();
 //add markers to map
 
 function refresh() {
+
+    
     var compteur = 0;
+    
 
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
 
-        el.className = 'grey large link map pin  icon';
+        if(marker.properties.message == "musee")
+        {
+            el.className = 'blue large link map pin  icon';
+        }
+        else if(marker.properties.message == "cinema")
+        {
+            el.className = 'red large link map pin  icon';
+        }
+        else if(marker.properties.message == "gallerie")
+        {
+            el.className = 'purple large link map pin  icon';
+        }
+        else if(marker.properties.message == "stade")
+        {
+            el.className = 'olive large link map pin  icon';
+        }
+        else if(marker.properties.message == "mairie")
+        {
+            el.className = 'orange large link map pin  icon';
+        }
+        else if(marker.properties.message == "universite")
+        {
+            el.className = 'pink large link map pin  icon';
+        }
+        else if(marker.properties.message == "parc")
+        {
+            el.className = 'green large link map pin  icon';
+        }
+        else if(marker.properties.message == "ambassade")
+        {
+            el.className = 'black large link map pin  icon';
+        }
+
+
 
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
-
         // make a marker for each feature and add to the map
         new mapboxgl.Marker(el) //ajout le nouveau marker a la map selon la position
             .setLngLat(marker.geometry.coordinates)
@@ -47,13 +82,16 @@ function refresh() {
 
 
     });
+    
+    //console.log(data._id="5ad874a16f7d163a7c17361d");
+    //afficheDetail(data[el.id]);
 
 }
 
 function afficherPopup(event) {//lors du clique sur un marker
 
     var elem = data[event.target.id];
-    afficheDetail(elem);//afficher les details dans la partie stats
+    afficheDetail(elem);//afficher les ils dans la partie stats
 
     //création des elements
     var tmpDivItem = document.createElement('div');
@@ -86,6 +124,14 @@ function afficherPopup(event) {//lors du clique sur un marker
     tmpDivDesc.className = "description";
     tmpDivExtra.className = "extra";
     tmpDivContent.className = "content";
+    tmpDivContent.style.overflow = "hidden";
+
+    if(!elem.phone){
+        elem.phone = "non renseigné";
+    }
+    if(!elem.website){
+        elem.website = "non renseigné";
+    }
 
 
 
@@ -96,7 +142,9 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpH.append(elem.name);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
+            
             tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.town +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i><a href='"+  elem.website +"'> " + elem.website + "</a>";
+
              tmpDivContent.append(tmpDivDesc);
             tmpDivDesc.append(tmpP);
         //tmpP.append(elem.adresse + bra + elem.codepostal + "<br />"  + elem.commune );
@@ -124,9 +172,15 @@ function addMarkerstoList(features, data) {//ajout des markers a la liste de mar
 }
 
 //Requetes AJAX
+
 $.post("/data",{type: "all"}, function (d) {
     $(".result").html(d);
     data = d;
+    for(l = 0; l < data.length ; l++){
+        if(data[l]._id == "5ad874a16f7d163a7c17361d"){
+            afficheDetail(data[l]);
+         }
+     }
 
     addMarkerstoList(geojson.features, data);
     refresh();
@@ -136,7 +190,7 @@ function reloadType(){
     geojson.features = []; //on vide le tableau de markers
 
     var dropdown = document.getElementById("cat");
-    console.log(dropdown.value);
+    
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
@@ -155,10 +209,15 @@ function afficheDetail(elem){
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
 
-	//Champs à ajouter
+    //Champs à ajouter
+    if(!elem.phone){
+        elem.phone = "non renseigné";
+    }
+    if(!elem.website){
+        elem.website = "non renseigné";
+    }
 	var titre = '<h3>' + elem.name +'</h3>';
-	var type = '<p>'+elem.type+'</p>';
-	var description = "<p>Y a rien</p>";
+	var type = '<p>'+elem.type+' situé</p>';
 
 	var horaire = "<p>"+elem.hours+ "</p>";
 
@@ -172,38 +231,53 @@ function afficheDetail(elem){
   ul.id = "horaires";
     for(var i = 0;i<7;i++){
         var li=document.createElement('li');
-        ul.append(li);
-        li.innerHTML = elem.hours[i];
+        
+        if(elem.hours[i]){
+            ul.append(li);
+            li.innerHTML = elem.hours[i];
+        }else{
+            if(i == 1){
+                li.innerHTML = "Les horaires ne sont pas renseignés";
+               ul.append(li);
+            }
+        }
+        
     }
-    console.log(elem.hours[0]);
-    console.log(ul);
-    if(elem.photos)
+    if(elem.photos && elem.photos.length > 0)
     {
         var photos = elem.photos;
         icon = "<img src='"+photos[0]+"'>";
         if(photos.length > 1)
         {
-            deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[1]+"'>"
+            deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "<img src='"+photos[1]+"'>"
+            if(photos.length > 2)
+            {
+                deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[2]+"'>"
+            }
         }
     }else {
         icon = "<img src='"+elem.icon+"'>"
+        deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "";
+        deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
     }
+
+    
 
 	//Ajout dans le template
 
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
-		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += type;
-		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += description;
+		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += ul.innerHTML;
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
         //Ajout dans la premiere colonne
+        
+		//deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
 
-		deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
-
-		//Ajout dans la deuxieme colonne
-		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = adresse;
+        //Ajout dans la deuxieme colonne
+        deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = type;
+		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML += adresse;
 		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 }
 

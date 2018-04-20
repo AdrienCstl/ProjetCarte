@@ -1,0 +1,173 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <!-- MAPBOX -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet'/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="public/semantic/out/semantic.min.css">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="public/semantic/out/components/dropdown.css">
+
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <script src="public/semantic/out/components/visibility.js"></script>
+    <script src="public/semantic/out/components/sidebar.js"></script>
+    <script src="public/semantic/out/components/transition.js"></script>
+    <script type="text/javascript" src="public/semantic/out/components/dropdown.js"></script>
+    <script src="public/js/script.js"></script>
+
+
+</head>
+
+
+<body>
+
+
+<!-- header apres scroll-->
+<div class="ui large top inverted fixed hidden menu">
+    <div id="menu" class="nav-container ui container">
+
+        <a class=" item s1" href="#top">Home</a>
+        <a class=" item s2" href="#map">Map</a>
+        <a class="item s3" href="#stats">Stats</a>
+    </div>
+</div>
+<!-- header avant scroll-->
+<div id="top" class="ui  vertical masthead center aligned segment">  <!--enleveer inverted si blanc-->
+
+    <div id="navMenu" class="ui container">
+        <div class="nav-container ui large secondary  pointing menu">  <!--enleveer inverted si blanc-->
+
+            <a class="active item s1 ss1" href="#top">Home</a>
+            <a class="item s2 ss2" href="#map">Map</a>
+            <a class="item s3 ss3" href="#stats">Stats</a>
+        </div>
+    </div>
+
+    <div class="ui text container">
+        <h1 class="ui  header">  <!--enleveer inverted si blanc-->
+            EasyLyon
+        </h1>
+        <h2>The perfect tourist's guide.</h2>
+        <a class="ui small image" href="https://www.univ-lyon1.fr/">
+            <img src="public/medias/images/logo.png"/>
+        </a>
+        <div class="ui huge secondary  button" id="getStarted">Get Started <i class="right arrow icon"></i></div>
+    </div>
+
+</div>
+
+
+<div id="map" class="ui bottom attached segment pushable">
+    <h3 class="ui header centered">Here you can find any cultural place in Lyon</h3>
+    <div id="mapbox">
+
+        <div style="position: absolute;z-index: 100" class="ui left floated segment relative ">
+            <div id="navMap">
+                <div  class="ui unstackable items">
+                    <div  class="item">
+                        <div class="ui action input large">
+                            <input placeholder="Search..." type="text" >
+                            <button class="ui icon button" onclick="reloadSearch()">
+                                <i class="search icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <select id="cat" onchange="modifyType()" class="ui dropdown button">
+                            <i class="dropdown icon"></i>
+                                    <option value="all" class="text">Choose Category</option>
+                                    <option value="cinema" class="text">Cinémas</option>
+                                    <option value="musee" class="text">Musées</option>
+                                    <option value="gallerie" class="text">Galleries d'art</option>
+                                    <option value="stade" class="text">Stades</option>
+                                    <option value="universite" class="text">Universités</option>
+                                    <option value="parc" class="text">Parcs</option>
+                                    <option value="ambassade" class="text">Ambassades</option>
+                                    <option value="mairie" class="text">Mairies</option>
+                        </select>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="item">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<div id="stats" class="ui vertical stripe segment">
+    <div class="ui  grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui wireframe image" src="public/medias/images/image.png">
+            </div>
+            <div class="thirteen wide column">
+                <img class="ui centered wireframe massive image" src="public/medias/images/centered-paragraph.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="three wide column">
+
+            </div>
+            <div class="ten wide column">
+                <img class="ui wireframe image" src="public/medias/images/paragraph.png">
+            </div>
+            <div class="three wide column">
+                <img class="ui wireframe image" src="public/medias/images/image.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui inverted vertical footer segment">
+    <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+            <div class="three wide column">
+                <h4 class="ui inverted header">About</h4>
+                <div class="ui inverted link list">
+                    <a href="https://www.univ-lyon1.fr/" class="item">University</a>
+                    <a href="https://www.lyon.fr/" class="item">Lyon</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">Navigation</h4>
+                <div class="ui inverted link list">
+                    <a href="#top" class="item">Home</a>
+                    <a href="#map" class="item">Map</a>
+                    <a href="#stats" class="item">Stats</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">EasyLyon</h4>
+                <p>Development project. Licence 3 informatique, Université Claude Bernard Lyon 1</p>
+                <p>2018</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer>
+
+</footer>
+
+
+</body>
+<script src="public/js/map.js"></script>
+</html>
