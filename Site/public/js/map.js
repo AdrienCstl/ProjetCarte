@@ -27,9 +27,9 @@ map.scrollZoom.disable();
 
 function refresh() {
 
-    
+
     var compteur = 0;
-    
+
 
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
@@ -82,7 +82,7 @@ function refresh() {
 
 
     });
-    
+
     //console.log(data._id="5ad874a16f7d163a7c17361d");
     //afficheDetail(data[el.id]);
 
@@ -142,7 +142,7 @@ function afficherPopup(event) {//lors du clique sur un marker
             tmpH.append(elem.name);
         tmpDivContent.append(tmpDivMeta);
             tmpDivMeta.append(tmpSpan);
-            
+
             tmpSpan.innerHTML = "<i class=\" marker icon\"></i>" + elem.address + "<br>" +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.postcode + "<br />"  +"&nbsp&nbsp&nbsp&nbsp&nbsp"+ elem.town +"<br><br>"+ "<i class=\"phone icon\"></i> "+ elem.phone + "<br><br>" + "<i class=\"globe icon\"></i><a href='"+  elem.website +"'> " + elem.website + "</a>";
 
              tmpDivContent.append(tmpDivDesc);
@@ -217,8 +217,7 @@ function afficheDetail(elem){
         elem.website = "non renseigné";
     }
 	var titre = '<h3>' + elem.name +'</h3>';
-	var type = '<p>'+elem.type+' situé</p>';
-
+	var type = '<p>'+ elem.type.charAt(0).toUpperCase() +  elem.type.substring(1).toLowerCase()+' situé :</p>';
 	var horaire = "<p>"+elem.hours+ "</p>";
 
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
@@ -261,8 +260,6 @@ function afficheDetail(elem){
         deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
     }
 
-
-
 	//Ajout dans le template
 
 	//Ajout dans la premiere ligne
@@ -271,9 +268,6 @@ function afficheDetail(elem){
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += ul.innerHTML;
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
-        //Ajout dans la premiere colonne
-
-		//deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
 
         //Ajout dans la deuxieme colonne
         deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = type;
