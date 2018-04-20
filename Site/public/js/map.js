@@ -31,8 +31,42 @@ function refresh() {
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
+        console.log(marker);
 
-        el.className = 'grey large link map pin  icon';
+        if(marker.properties.message == "musee")
+        {
+            el.className = 'blue large link map pin  icon';
+        }
+        else if(marker.properties.message == "cinema")
+        {
+            el.className = 'red large link map pin  icon';
+        }
+        else if(marker.properties.message == "gallerie")
+        {
+            el.className = 'purple large link map pin  icon';
+        }
+        else if(marker.properties.message == "stade")
+        {
+            el.className = 'olive large link map pin  icon';
+        }
+        else if(marker.properties.message == "mairie")
+        {
+            el.className = 'orange large link map pin  icon';
+        }
+        else if(marker.properties.message == "universite")
+        {
+            el.className = 'pink large link map pin  icon';
+        }
+        else if(marker.properties.message == "parc")
+        {
+            el.className = 'green large link map pin  icon';
+        }
+        else if(marker.properties.message == "ambassade")
+        {
+            el.className = 'black large link map pin  icon';
+        }
+
+
 
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
@@ -201,7 +235,7 @@ function afficheDetail(elem){
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
 	//Ajout dans la deuxieme ligne
         //Ajout dans la premiere colonne
-        
+
 		deuxiemeligne.getElementsByClassName('three wide column')[0].replaceChild(ul,deuxiemeligne.getElementsByClassName('three wide column')[0].firstChild);
 
 		//Ajout dans la deuxieme colonne
