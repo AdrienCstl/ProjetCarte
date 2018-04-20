@@ -31,7 +31,6 @@ function refresh() {
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
-        console.log(marker);
 
         if(marker.properties.message == "musee")
         {
@@ -218,11 +217,13 @@ function afficheDetail(elem){
             deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "<img src='"+photos[1]+"'>"
             if(photos.length > 2)
             {
-                deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "<img src='"+photos[1]+"'>"
+                deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "<img src='"+photos[2]+"'>"
             }
         }
     }else {
         icon = "<img src='"+elem.icon+"'>"
+        deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "";
+        deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
     }
 
 	//Ajout dans le template
