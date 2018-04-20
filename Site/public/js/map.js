@@ -26,12 +26,15 @@ map.scrollZoom.disable();
 //add markers to map
 
 function refresh() {
+
+    
     var compteur = 0;
+    
 
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
         var el = document.createElement('i');//création des éléments markers
-        console.log(marker);
+        
 
         if(marker.properties.message == "musee")
         {
@@ -70,7 +73,6 @@ function refresh() {
 
         el.addEventListener("click", afficherPopup);//ajout d'un listener dessus
         // el.toggleClass = 'infoPin';
-
         // make a marker for each feature and add to the map
         new mapboxgl.Marker(el) //ajout le nouveau marker a la map selon la position
             .setLngLat(marker.geometry.coordinates)
@@ -81,6 +83,9 @@ function refresh() {
 
 
     });
+    
+    //console.log(data._id="5ad874a16f7d163a7c17361d");
+    //afficheDetail(data[el.id]);
 
 }
 
@@ -168,9 +173,15 @@ function addMarkerstoList(features, data) {//ajout des markers a la liste de mar
 }
 
 //Requetes AJAX
+
 $.post("/data",{type: "all"}, function (d) {
     $(".result").html(d);
     data = d;
+    for(l = 0; l < data.length ; l++){
+        if(data[l]._id == "5ad874a16f7d163a7c17361d"){
+            afficheDetail(data[l]);
+         }
+     }
 
     addMarkerstoList(geojson.features, data);
     refresh();
@@ -180,7 +191,7 @@ function reloadType(){
     geojson.features = []; //on vide le tableau de markers
 
     var dropdown = document.getElementById("cat");
-    console.log(dropdown.value);
+    
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
