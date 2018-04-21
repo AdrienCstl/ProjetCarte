@@ -1,9 +1,7 @@
 var data;
 
+//TODO: Mettre un temporisateur "entre chaque clic sur le Search
 
-// Fin des requetes
-
-//create tab
 mapboxgl.accessToken = 'undefined';
 var geojson = {
     "type": "FeatureCollection",
@@ -20,10 +18,6 @@ var map = new mapboxgl.Map({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 map.scrollZoom.disable();
-
-
-
-//add markers to map
 
 function refresh() {
 
@@ -211,8 +205,6 @@ function afficheDetail(elem){
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
 
-
-
     if(!elem.phone){
         elem.phone = "non renseigné";
     }
@@ -288,56 +280,63 @@ function afficheDetail(elem){
 	deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML += adresse;
 	deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
 
-
-
     //Affichage de la note
     if(elem.rating){
-        var paragraphe = document.createElement('p');
-        var entier = Math.trunc(elem.rating);
-        var decimal = (elem.rating - entier) * 10;
-
         var titreAvis = document.createElement("h4");
         titreAvis.innerHTML = "Note moyenne: ";
 
-        var nbEtoile;
-        //Ajout des etoiles pleines
-        for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
-        {
-            var etoile  = document.createElement('img');
-            etoile.src = "public/medias/images/Star.jpg";
-            paragraphe.appendChild(etoile);
-        }
+        var result = afficherAvis(elem.rating);
 
-        //Ajouter demi etoiles
-        if(decimal >= 3 && decimal <= 7){
-            var mediumEtoile = document.createElement('img');
-            mediumEtoile.src = "public/medias/images/mediumStar.jpg";
-            paragraphe.appendChild(mediumEtoile);
-            nbEtoile++;
-        }
-        else if( decimal >= 8 )
-        {
-            var etoile  = document.createElement('img');
-            etoile.src = "public/medias/images/Star.jpg";
-            paragraphe.appendChild(etoile);
-            nbEtoile++;
-        }
-
-        //Ajout d'étoile vide
-        for(; nbEtoile < 4; nbEtoile++)
-        {
-            var emptyEtoile = etoile;
-            emptyEtoile.src = "public/medias/images/emptyStar.jpg";
-            paragraphe.appendChild(emptyEtoile);
-        }
         deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(titreAvis);
-        deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(paragraphe);
+        deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(result);
     }
+
 
 
 }
 
-//TODO: Mettre un temporisateur "entre chaque clic sur le Search
+
+function afficherAvis(rate)
+{
+    var paragraphe = document.createElement('p');
+    var entier = Math.trunc(rate);
+    var decimal = (rate - entier) * 10;
+
+
+
+    var nbEtoile;
+    //Ajout des etoiles pleines
+    for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
+    {
+        var etoile  = document.createElement('img');
+        etoile.src = "public/medias/images/Star.jpg";
+        paragraphe.appendChild(etoile);
+    }
+
+    //Ajouter demi etoiles
+    if(decimal >= 3 && decimal <= 7){
+        var mediumEtoile = document.createElement('img');
+        mediumEtoile.src = "public/medias/images/mediumStar.jpg";
+        paragraphe.appendChild(mediumEtoile);
+        nbEtoile++;
+    }
+    else if( decimal >= 8 )
+    {
+        var etoile  = document.createElement('img');
+        etoile.src = "public/medias/images/Star.jpg";
+        paragraphe.appendChild(etoile);
+        nbEtoile++;
+    }
+
+    //Ajout d'étoile vide
+    for(; nbEtoile < 4; nbEtoile++)
+    {
+        var emptyEtoile = etoile;
+        emptyEtoile.src = "public/medias/images/emptyStar.jpg";
+        paragraphe.appendChild(emptyEtoile);
+    }
+    return paragraphe;
+}
 
 //Tri par nom
 function reloadSearch(){
@@ -393,25 +392,24 @@ function reloadSearch(){
 //slider
 var slider = document.getElementById('slider');
 noUiSlider.create(slider, {
-  start: [ 0,  23], // Handle start position
-  step: 1, // Slider moves in increments of '10'
-  margin: 1, // Handles must be more than '20' apart
-  connect: true, // Display a colored bar between the handles
-  orientation: 'horizontal', // Orient the slider vertically
-  behaviour: 'tap-drag', // Move handle on tap, bar is draggable
-  range: { // Slider can select '0' to '100'
-  'min': 0,
-  'max': 23
-},
-tooltips: true
+    start: [ 0,  23], // Handle start position
+    step: 1, // Slider moves in increments of '10'
+    margin: 1, // Handles must be more than '20' apart
+    connect: true, // Display a colored bar between the handles
+    orientation: 'horizontal', // Orient the slider vertically
+    behaviour: 'tap-drag', // Move handle on tap, bar is draggable
+    range: { // Slider can select '0' to '100'
+        'min': 0,
+        'max': 23
+    },
+    tooltips: true
 });
 
 slider.style.width = '180px';
 slider.style.margin = '20 auto 20px';
 
 slider.noUiSlider.on('update', function( values, handle ) {
-
-  var value = values[handle];
+    var value = values[handle];
 });
 
 //Tri par horaire
