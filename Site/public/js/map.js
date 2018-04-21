@@ -196,7 +196,7 @@ function reloadType(){
     $.post("/data",{type:dropdown.value}, function (d) { //on récupere les données selon le type
         $(".result").html(d);
         data = d;
-        $('.pinMap').ve();//on supprime les markers
+        $('.pinMap').remove();//on supprime les markers
         addMarkerstoList(geojson.features, data); // on ajoute les markers a la liste depuis les données
         refresh(); //refresh la map
     });
@@ -334,7 +334,7 @@ function afficheDetail(elem){
         deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(paragraphe);
     }
 
-    
+
 }
 
 //TODO: Mettre un temporisateur "entre chaque clic sur le Search
@@ -351,7 +351,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').ve();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -362,7 +362,7 @@ function reloadSearch(){
         $.post("/data",{name:nameSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').ve();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -372,7 +372,7 @@ function reloadSearch(){
         $.post("/data",{type:typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').ve();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
@@ -383,7 +383,7 @@ function reloadSearch(){
         $.post("/data",{type: "all"}, function (d) {
             $(".result").html(d);
             data = d;
-            $('.pinMap').ve();
+            $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
         });
