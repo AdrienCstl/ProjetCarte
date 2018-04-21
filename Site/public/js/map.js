@@ -211,26 +211,28 @@ function afficheDetail(elem){
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
 
-    //Champs à ajouter
+
+
     if(!elem.phone){
         elem.phone = "non renseigné";
     }
     if(!elem.website){
         elem.website = "non renseigné";
     }
+
 	var titre = '<h3>' + elem.name +'</h3>';
 	var type = '<p>'+ elem.type.charAt(0).toUpperCase() +  elem.type.substring(1).toLowerCase()+' situé :</p>';
 	var horaire = "<p>"+elem.hours+ "</p>";
     var titreHoraire = "<h4><i class='clock icon'></i>Horaires</h4>";
 	var adresse = "<p> <i class=\"map marker icon\"></i> " +elem.address + ", " +elem.postcode +" "+ elem.town+"</p>";
 
-  var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
-  if(elem.website == "non renseigné"){
-    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><i class=\"globe icon\"></i>"+" "+elem.website;
+    var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><a href='"+elem.website+"'><i class=\"globe icon\"></i>"+" "+elem.website+"</a>";
+    if(elem.website == "non renseigné"){
+        var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><i class=\"globe icon\"></i>"+" "+elem.website;
     }
 
-    var icon;
 
+    //Affichage d'horaires
     var ul=document.createElement('ul');
     ul.id = "horaires";
     for(var i = 0;i<7;i++){
@@ -247,6 +249,9 @@ function afficheDetail(elem){
         }
 
     }
+
+    //Affichage des photos
+    var icon;
     if(elem.photos && elem.photos.length > 0)
     {
         var photos = elem.photos;
@@ -270,20 +275,66 @@ function afficheDetail(elem){
         icon = "<img src='"+elem.icon+"'>"
     }
 
-	//Ajout dans le template
-
 	//Ajout dans la premiere ligne
 		//Ajout dans la deuxieme colonne
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML = titre;
         premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += titreHoraire;
 		premiereligne.getElementsByClassName("thirteen wide column")[0].innerHTML += ul.innerHTML;
         premiereligne.getElementsByClassName("three wide column")[0].innerHTML= icon;
-	//Ajout dans la deuxieme ligne
 
-        //Ajout dans la deuxieme colonne
-        deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = type;
-		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML += adresse;
-		deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
+	//Ajout dans la deuxieme ligne
+    //Ajout dans la deuxieme colonne
+    deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML = type;
+	deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML += adresse;
+	deuxiemeligne.getElementsByClassName("ten wide column")[0].innerHTML +=contact ;
+
+
+
+    //Affichage de la note
+    if(elem.rating){
+        var paragraphe = document.createElement('p');
+        var entier = Math.trunc(elem.rating);
+        var decimal = (elem.rating - entier) * 10;
+
+        var titreAvis = document.createElement("h4");
+        titreAvis.innerHTML = "Note moyenne: ";
+
+        var nbEtoile;
+        //Ajout des etoiles pleines
+        for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
+        {
+            var etoile  = document.createElement('img');
+            etoile.src = "public/medias/images/Star.jpg";
+            paragraphe.appendChild(etoile);
+        }
+
+        //Ajouter demi etoiles
+        if(decimal >= 3 && decimal <= 7){
+            var mediumEtoile = document.createElement('img');
+            mediumEtoile.src = "public/medias/images/mediumStar.jpg";
+            paragraphe.appendChild(mediumEtoile);
+            nbEtoile++;
+        }
+        else if( decimal >= 8 )
+        {
+            var etoile  = document.createElement('img');
+            etoile.src = "public/medias/images/Star.jpg";
+            paragraphe.appendChild(etoile);
+            nbEtoile++;
+        }
+
+        //Ajout d'étoile vide
+        for(; nbEtoile < 4; nbEtoile++)
+        {
+            var emptyEtoile = etoile;
+            emptyEtoile.src = "public/medias/images/emptyStar.jpg";
+            paragraphe.appendChild(emptyEtoile);
+        }
+        deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(titreAvis);
+        deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(paragraphe);
+    }
+
+    
 }
 
 //TODO: Mettre un temporisateur "entre chaque clic sur le Search
