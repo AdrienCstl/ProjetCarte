@@ -292,7 +292,28 @@ function afficheDetail(elem){
     }
 
 
+    //Affichage des avis
+    if(elem.reviews && elem.reviews.length > 0){
+        for(var i = 0; i< elem.reviews.length; i++)
+        {
+            //Recuperation de la date et des etoiles
+            var div = document.createElement("div");
+            var etoile = afficherAvis(elem.reviews[i].rating);
+            var date = new Date(elem.reviews[i].time*1000);
 
+            //Affichage des etoiles de l'auteur et de la date
+            div.innerHTML = "<p>"+etoile.innerHTML+" "+elem.reviews[i].author+" le "+date.getDay()+ " "+date.getMonth()+" "+date.getFullYear()+"</p>";
+
+            //Si il ya du texte
+            if(elem.reviews[i].text.length >0){
+                div.innerHTML += "<p>"+elem.reviews[i].text+"</p>";
+            }
+            deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(div);
+            //Ajout d'un double saut de ligne
+            deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(document.createElement('br'));
+            deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(document.createElement('br'));
+        }
+    }
 }
 
 
@@ -301,9 +322,7 @@ function afficherAvis(rate)
     var paragraphe = document.createElement('p');
     var entier = Math.trunc(rate);
     var decimal = (rate - entier) * 10;
-
-
-
+    
     var nbEtoile;
     //Ajout des etoiles pleines
     for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
