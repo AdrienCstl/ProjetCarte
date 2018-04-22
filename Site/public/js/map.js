@@ -438,18 +438,18 @@ function getDayHours(){
   for (var i = 0; i<daysplit.length; i++){
     daysplit[i] = Number(daysplit[i]);
   }
-  
+
   reloadHours(daysplit, hours);
 
 }
 //Tri par horaire
 function reloadHours(day, hours)
 {
-    console.log("reload hours");
+
     var newData = [];
     for(var i =0; i < data.length; i++)
     {
-        if(data[i].hours)
+        if(!data[i].hours || data[i].hours.length == 0)
         {
             newData.push(data[i]);
         }
@@ -477,23 +477,25 @@ function reloadHours(day, hours)
                     var index = day[j];
                     var borneInf = hours[0];
                     var borneSup = hours[1];
-
                     //Recupération des heures
                     var split = data[i].hours[index].split(" ");
-                    var bornes = [split[1].split(":")[0], split[3].split(":")[0]];
 
-                    borne[0] = Number(borne[0]);
-                    borne[1] = Number(borne[1]);
+                    //Si il est inferieur à 3 c'est que le lieu est ouvert 24h/24
+                    if(split.length > 3){
+                        var borne = [split[1].split(":")[0], split[3].split(":")[0]];
 
-                    if(borne[0] < borneInf || borne[1] > borneSup)
-                    {
-                        //On ne l'ajoute pas au tableau
-                        next = true;
-                        break;
+                        borne[0] = Number(borne[0]);
+                        borne[1] = Number(borne[1]);
+                        if(borne[0] < borneInf || borne[1] > borneSup)
+                        {
+                            //On ne l'ajoute pas au tableau
+                            next = true;
+                            break;
+                        }
                     }
                 }
 
-                if(next)
+                if(!next)
                 {
                     newData.push(data[i]);
                 }
@@ -502,8 +504,8 @@ function reloadHours(day, hours)
         }
     }
     data = newData;
-    console.log(newData);
     $('.pinMap').remove();
+    geojson.features = []; //on vide le tableau de markers
     addMarkerstoList(geojson.features, data);
     refresh();
 }
