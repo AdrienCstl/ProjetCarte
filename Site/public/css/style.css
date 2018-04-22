@@ -96,7 +96,7 @@
     #mapbox{
         margin-top:auto;
         max-height: 85%;
-        height: 85%;
+        height: 82%;
         width: 100%;
         float: left;
         /*box-shadow: 0px 0px 10px 1px lightgray;*/
@@ -146,3 +146,7 @@
 span{
     padding:5px;
 }
+
+#lol{text-align: center;padding: 5px}
+#pop{margin: auto;}
+#sliderH{padding: 5px;margin-top: 5px;}

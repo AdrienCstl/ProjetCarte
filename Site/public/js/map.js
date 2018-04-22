@@ -367,6 +367,7 @@ function reloadSearch(){
             $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
+            getDayHours();
         });
     }
     //Recherche par nom
@@ -378,6 +379,7 @@ function reloadSearch(){
             $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
+            getDayHours();
         });
     }
     //Recherche par type
@@ -388,6 +390,7 @@ function reloadSearch(){
             $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
+            getDayHours();
         });
     }
     //On envoi toutes les données
@@ -399,8 +402,10 @@ function reloadSearch(){
             $('.pinMap').remove();
             addMarkerstoList(geojson.features, data);
             refresh();
+            getDayHours();
         });
     }
+    
 }
 
 
@@ -432,6 +437,7 @@ slider.noUiSlider.on('update', function( values, handle ) {
 
 function getDayHours(){
   //days values
+  
   var inputdays = document.getElementById('days');
   var day = inputdays.value;
   var daysplit = day.split(",");
@@ -441,6 +447,11 @@ function getDayHours(){
 
   reloadHours(daysplit, hours);
 
+}
+
+function restSearch(){
+    console.log(document.getElementById('slider'));
+    reloadSearch();
 }
 //Tri par horaire
 function reloadHours(day, hours)
