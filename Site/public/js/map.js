@@ -295,7 +295,7 @@ function afficheDetail(elem){
             var etoile = afficherAvis(elem.reviews[i].rating);
             var date = new Date(elem.reviews[i].time*1000);
 
-            var mois = date.getMonth() < 10 ?  "0"+date.getMonth() :  date.getMonth();
+            var mois = date.getMonth()+1 < 10 ?  "0"+(date.getMonth()+1) :  date.getMonth()+1;
             var jour = date.getDate() < 10 ? "0"+date.getDate() :  date.getDate();
 
             //Affichage des etoiles de l'auteur et de la date
