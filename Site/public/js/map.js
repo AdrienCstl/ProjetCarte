@@ -359,7 +359,7 @@ function reloadSearch(){
     var typeSearch = document.getElementById("cat").value;
 
     //Recherche par nom et type
-    if(nameSearch != "" && typeSearch != "all")
+    if(nameSearch != "" && typeSearch != "all" && typeSearch != "")
     {
         $.post("/data",{name:nameSearch, type: typeSearch}, function (d) {
             $(".result").html(d);
@@ -383,7 +383,7 @@ function reloadSearch(){
         });
     }
     //Recherche par type
-    else if (typeSearch != "all") {
+    else if (typeSearch != "all" && typeSearch != "") {
         $.post("/data",{type:typeSearch}, function (d) {
             $(".result").html(d);
             data = d;
@@ -405,7 +405,7 @@ function reloadSearch(){
             getDayHours();
         });
     }
-    
+
 }
 
 
@@ -437,20 +437,24 @@ slider.noUiSlider.on('update', function( values, handle ) {
 
 function getDayHours(){
   //days values
-  
-  var inputdays = document.getElementById('days');
-  var day = inputdays.value;
-  var daysplit = day.split(",");
-  for (var i = 0; i<daysplit.length; i++){
-    daysplit[i] = Number(daysplit[i]);
-  }
 
-  reloadHours(daysplit, hours);
-
+    var inputdays = document.getElementById('days');
+    var day = inputdays.value;
+    if(day != "")
+    {
+        var daysplit = day.split(",");
+        for (var i = 0; i<daysplit.length; i++){
+            daysplit[i] = Number(daysplit[i]);
+        }
+        reloadHours(daysplit, hours);
+    }
 }
 
 function restSearch(){
-    console.log(document.getElementById('slider'));
+    slider.noUiSlider.set([0,23]);
+    $('#horairs').dropdown('clear');
+    $('#catDiv').dropdown('clear');
+    document.getElementById('inputName').value ="";
     reloadSearch();
 }
 //Tri par horaire
@@ -462,7 +466,7 @@ function reloadHours(day, hours)
     {
         if(!data[i].hours || data[i].hours.length == 0)
         {
-            newData.push(data[i]);
+            //newData.push(data[i]);
         }
         else
         {
