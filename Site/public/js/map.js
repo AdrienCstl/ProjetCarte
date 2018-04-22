@@ -295,8 +295,11 @@ function afficheDetail(elem){
             var etoile = afficherAvis(elem.reviews[i].rating);
             var date = new Date(elem.reviews[i].time*1000);
 
+            var mois = date.getMonth() < 10 ?  "0"+date.getMonth() :  date.getMonth();
+            var jour = date.getDate() < 10 ? "0"+date.getDate() :  date.getDate();
+
             //Affichage des etoiles de l'auteur et de la date
-            div.innerHTML = "<p>"+etoile.innerHTML+" "+elem.reviews[i].author+" le "+date.getDay()+ " "+date.getMonth()+" "+date.getFullYear()+"</p>";
+            div.innerHTML = "<p>"+etoile.innerHTML+" "+elem.reviews[i].author+" le "+jour+ "/"+mois+"/"+date.getFullYear()+"</p>";
 
             //Si il ya du texte
             if(elem.reviews[i].text.length >0){
@@ -316,16 +319,15 @@ function afficherAvis(rate)
     var paragraphe = document.createElement('p');
     var entier = Math.trunc(rate);
     var decimal = (rate - entier) * 10;
-
     var nbEtoile;
     //Ajout des etoiles pleines
     for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
     {
+
         var etoile  = document.createElement('img');
         etoile.src = "public/medias/images/Star.jpg";
         paragraphe.appendChild(etoile);
     }
-
     //Ajouter demi etoiles
     if(decimal >= 3 && decimal <= 7){
         var mediumEtoile = document.createElement('img');
@@ -340,11 +342,10 @@ function afficherAvis(rate)
         paragraphe.appendChild(etoile);
         nbEtoile++;
     }
-
     //Ajout d'étoile vide
-    for(; nbEtoile < 4; nbEtoile++)
+    for(; nbEtoile < 5; nbEtoile++)
     {
-        var emptyEtoile = etoile;
+        var emptyEtoile = document.createElement('img');
         emptyEtoile.src = "public/medias/images/emptyStar.jpg";
         paragraphe.appendChild(emptyEtoile);
     }
