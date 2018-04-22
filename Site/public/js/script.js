@@ -4,7 +4,7 @@ $(document)
       //dropdown select
       $('#buttonclear')
       .on('click', function() {
-        $('#select')
+        $('#horairs')
         .dropdown('clear');
       });
 

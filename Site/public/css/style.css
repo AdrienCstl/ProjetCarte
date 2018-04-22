@@ -138,3 +138,11 @@
     margin-top: 15px;
     display: block;
 }
+
+
+#horairs{max-width: 100px;}
+#buttonclear{max-height: 38px}
+
+span{
+    padding:5px;
+}
