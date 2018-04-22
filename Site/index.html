@@ -141,7 +141,7 @@
                         <div class="ui divider"></div>
                         <div class="item">
                             <div id="horairs" class="ui multiple selection dropdown">
-                                <input name="day" value="" type="hidden">
+                                <input id="days" name="day" value="" type="hidden">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Default</div>
                                 <div class="menu">
@@ -163,6 +163,9 @@
                             <div id="slider"></div>
                         </div>
                         <div class="item">
+                          <div onclick="getDayHours()" id="buttonHours" class="ui button">
+                              Search
+                          </div>
                         </div>
                     </div>
 

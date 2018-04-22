@@ -402,6 +402,8 @@ function reloadSearch(){
     }
 }
 
+
+
 //slider
 var slider = document.getElementById('slider');
 noUiSlider.create(slider, {
@@ -421,13 +423,28 @@ noUiSlider.create(slider, {
 slider.style.width = '180px';
 slider.style.margin = '20 auto 20px';
 
+
+var hours = [0,23];
 slider.noUiSlider.on('update', function( values, handle ) {
-    var value = values[handle];
+    hours[handle] = Number(values[handle]);
 });
 
+function getDayHours(){
+  //days values
+  var inputdays = document.getElementById('days');
+  var day = inputdays.value;
+  var daysplit = day.split(",");
+  for (var i = 0; i<daysplit.length; i++){
+    daysplit[i] = Number(daysplit[i]);
+  }
+  
+  reloadHours(daysplit, hours);
+
+}
 //Tri par horaire
 function reloadHours(day, hours)
 {
+    console.log("reload hours");
     var newData = [];
     for(var i =0; i < data.length; i++)
     {
@@ -484,4 +501,8 @@ function reloadHours(day, hours)
         }
     }
     data = newData;
+    console.log(newData);
+    $('.pinMap').remove();
+    addMarkerstoList(geojson.features, data);
+    refresh();
 }
