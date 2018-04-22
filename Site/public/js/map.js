@@ -20,10 +20,7 @@ map.addControl(new mapboxgl.NavigationControl());
 map.scrollZoom.disable();
 
 function refresh() {
-
-
     var compteur = 0;
-
 
     geojson.features.forEach(function (marker) { //pour tous les markers de la liste
         // create a HTML element for each feature
@@ -223,7 +220,6 @@ function afficheDetail(elem){
         var contact = "<p  > <i class=\"phone icon\"></i>"+" "+elem.phone+"</p><i class=\"globe icon\"></i>"+" "+elem.website;
     }
 
-
     //Affichage d'horaires
     var ul=document.createElement('ul');
     ul.id = "horaires";
@@ -283,14 +279,12 @@ function afficheDetail(elem){
     //Affichage de la note
     if(elem.rating){
         var titreAvis = document.createElement("h4");
-        titreAvis.innerHTML = "Note moyenne: ";
 
         var result = afficherAvis(elem.rating);
 
+        titreAvis.innerHTML = "Note moyenne: "+ result.innerHTML;
         deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(titreAvis);
-        deuxiemeligne.getElementsByClassName("ten wide column")[0].appendChild(result);
     }
-
 
     //Affichage des avis
     if(elem.reviews && elem.reviews.length > 0){
@@ -322,7 +316,7 @@ function afficherAvis(rate)
     var paragraphe = document.createElement('p');
     var entier = Math.trunc(rate);
     var decimal = (rate - entier) * 10;
-    
+
     var nbEtoile;
     //Ajout des etoiles pleines
     for(nbEtoile = 0; nbEtoile < entier; nbEtoile++)
