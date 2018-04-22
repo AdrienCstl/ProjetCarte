@@ -74,9 +74,6 @@ function refresh() {
 
     });
 
-    //console.log(data._id="5ad874a16f7d163a7c17361d");
-    //afficheDetail(data[el.id]);
-
 }
 
 function afficherPopup(event) {//lors du clique sur un marker
@@ -199,8 +196,6 @@ function modifyType(){
 }
 
 function afficheDetail(elem){
-
-    console.log(elem);
 
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
