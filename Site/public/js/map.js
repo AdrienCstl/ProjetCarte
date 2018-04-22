@@ -199,6 +199,9 @@ function modifyType(){
 }
 
 function afficheDetail(elem){
+
+    console.log(elem);
+
 	var premiereligne = $(".row")[0];
 	var deuxiemeligne = $(".row")[1];
 
@@ -260,6 +263,8 @@ function afficheDetail(elem){
             deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
         }
     }else {
+        deuxiemeligne.getElementsByClassName("three wide column")[0].innerHTML = "";
+        deuxiemeligne.getElementsByClassName("three wide column")[1].innerHTML = "";
         icon = "<img src='"+elem.icon+"'>"
     }
 
